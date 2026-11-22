@@ -1,57 +1,65 @@
 import { Link } from 'react-router-dom'
-import { Globe, MessageCircle, Mail, MapPin, Phone } from 'lucide-react'
+import { Globe, MessageCircle, Mail, MapPin, Phone, Heart, Sparkles } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-charcoal text-cream/80 pt-16 pb-8">
+    <footer className="bg-indigo-deep text-ivory/80 pt-16 pb-8 border-t-4 border-saffron-500">
       <div className="container-site">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-cream/10">
-          {/* Brand */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-ivory/10">
+          {/* Brand Col */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <img
                 src={`${import.meta.env.BASE_URL}logo.jpg`}
-                alt="thecutebox"
-                className="h-9 w-9 rounded-xl object-contain"
+                alt="thecutebox logo"
+                className="h-10 w-10 rounded-2xl object-contain ring-1 ring-saffron-400/40"
               />
-              <span className="font-display font-bold text-xl text-cream leading-none">
-                thecutebox<span className="text-cream/40 font-sans font-normal text-xs">.in</span>
-              </span>
+              <div>
+                <span className="font-display font-bold text-2xl text-ivory leading-none block">
+                  thecutebox<span className="text-saffron-400 font-sans font-normal text-xs">.in</span>
+                </span>
+                <span className="text-[10px] tracking-widest text-marigold-300 uppercase font-semibold">
+                  Artisan Indian Gifting
+                </span>
+              </div>
             </div>
-            <p className="text-sm leading-relaxed mb-5 text-cream/60">
-              Artisanal gift boxes hand-packed with love in Jaipur &amp; Bangalore. Every box tells a story.
+            <p className="text-sm leading-relaxed mb-6 text-ivory/70">
+              Celebrating India's rich craft heritage. Every box is curated with authentic artisan treasures, fresh flowers, and hand-lettered blessings in Jaipur &amp; Bangalore.
             </p>
             <div className="flex gap-3">
               {[
                 { icon: Globe, href: '#', label: 'Instagram' },
-                { icon: MessageCircle, href: '#', label: 'Twitter' },
-                { icon: Mail, href: 'mailto:hello@thecutebox.in', label: 'Email' },
+                { icon: MessageCircle, href: '#', label: 'WhatsApp' },
+                { icon: Mail, href: 'mailto:namaste@thecutebox.in', label: 'Email' },
               ].map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-full bg-cream/10 flex items-center justify-center hover:bg-terracotta-500 transition-colors"
+                  className="w-10 h-10 rounded-full bg-ivory/10 flex items-center justify-center hover:bg-saffron-500 hover:text-white transition-all hover:scale-105"
                 >
-                  <Icon size={16} />
+                  <Icon size={18} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Shop */}
+          {/* Quick Links */}
           <div>
-            <h3 className="font-display font-semibold text-cream text-base mb-4">Shop</h3>
+            <h3 className="font-display font-semibold text-ivory text-base mb-4 flex items-center gap-2">
+              <span className="text-saffron-400">🪔</span> Curations
+            </h3>
             <ul className="space-y-2.5 text-sm">
               {[
-                ['Build Your Box', '/build'],
-                ['Ready Hampers', '/hampers'],
-                ['Full Catalog', '/catalog'],
-                ['Corporate Gifting', '/corporate'],
-                ['Artisans & Studio', '/artisans'],
+                ['Build Your Custom Box', '/build'],
+                ['Royal Festive Hampers', '/hampers'],
+                ['All Artisan Catalog', '/catalog'],
+                ['Corporate Diwali Gifting', '/corporate'],
+                ['Meet Our Artisans', '/artisans'],
               ].map(([label, to]) => (
                 <li key={to}>
-                  <Link to={to} className="hover:text-terracotta-300 transition-colors">
+                  <Link to={to} className="hover:text-marigold-300 transition-colors flex items-center gap-1.5">
+                    <span className="text-saffron-500 text-xs">✦</span>
                     {label}
                   </Link>
                 </li>
@@ -59,66 +67,66 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Help */}
+          {/* Celebrations */}
           <div>
-            <h3 className="font-display font-semibold text-cream text-base mb-4">Help</h3>
+            <h3 className="font-display font-semibold text-ivory text-base mb-4 flex items-center gap-2">
+              <span className="text-marigold-400">🌸</span> Festive Occasions
+            </h3>
             <ul className="space-y-2.5 text-sm">
               {[
-                ['Track Your Order', '#'],
-                ['Shipping Policy', '#'],
-                ['Returns & Exchanges', '#'],
-                ['Gift Personalisation', '#'],
-                ['FAQs', '#'],
+                ['Diwali & Dhanteras Gift Boxes', '/catalog?occasion=diwali'],
+                ['Shaadi & Wedding Favours', '/catalog?occasion=wedding'],
+                ['Griha Pravesh Housewarming', '/catalog?occasion=housewarming'],
+                ['Navratri & Pooja Kits', '/catalog?occasion=pooja'],
+                ['Corporate Milestones & Kits', '/corporate'],
               ].map(([label, to]) => (
                 <li key={label}>
-                  <a href={to} className="hover:text-terracotta-300 transition-colors">
+                  <Link to={to} className="hover:text-marigold-300 transition-colors flex items-center gap-1.5">
+                    <span className="text-saffron-500 text-xs">✦</span>
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact & Studio */}
           <div>
-            <h3 className="font-display font-semibold text-cream text-base mb-4">Get In Touch</h3>
+            <h3 className="font-display font-semibold text-ivory text-base mb-4 flex items-center gap-2">
+              <span className="text-rose-light">📍</span> Indian Studios
+            </h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2.5">
-                <Mail size={15} className="mt-0.5 text-terracotta-300 shrink-0" />
-                <span>hello@thecutebox.in</span>
+                <MapPin size={16} className="mt-1 text-saffron-400 shrink-0" />
+                <span>
+                  <strong>Jaipur Studio:</strong> C-Scheme, Ashok Nagar, Jaipur, Rajasthan 302001
+                </span>
               </li>
               <li className="flex items-start gap-2.5">
-                <Phone size={15} className="mt-0.5 text-terracotta-300 shrink-0" />
-                <span>+91 98765 43210</span>
+                <MapPin size={16} className="mt-1 text-teal-400 shrink-0" />
+                <span>
+                  <strong>Bangalore Studio:</strong> Indiranagar 100ft Rd, Bangalore 560038
+                </span>
               </li>
               <li className="flex items-start gap-2.5">
-                <MapPin size={15} className="mt-0.5 text-terracotta-300 shrink-0" />
-                <span>Studio: Jaipur &amp; Bangalore, India</span>
+                <Mail size={16} className="mt-1 text-saffron-400 shrink-0" />
+                <span>namaste@thecutebox.in</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Phone size={16} className="mt-1 text-marigold-400 shrink-0" />
+                <span>+91 98290 12345 (Mon–Sat, 10 AM–7 PM)</span>
               </li>
             </ul>
-            <div className="mt-5">
-              <p className="text-xs text-cream/50 mb-2">Subscribe for exclusive drops</p>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="flex-1 bg-cream/10 border border-cream/20 rounded-full px-3 py-2 text-xs text-cream placeholder:text-cream/40 focus:outline-none focus:border-terracotta-400"
-                />
-                <button className="bg-terracotta-500 text-white px-4 py-2 rounded-full text-xs font-semibold hover:bg-terracotta-600 transition-colors">
-                  Join
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-cream/40">
-          <p>© 2024 thecutebox.in — Gift With Intent. Made with ❤️ in India.</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-cream/70 transition-colors">Privacy</a>
-            <a href="#" className="hover:text-cream/70 transition-colors">Terms</a>
-            <a href="#" className="hover:text-cream/70 transition-colors">Sitemap</a>
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ivory/50">
+          <p>© 2024 thecutebox.in — Shubh Gifting. Made with <Heart size={12} className="inline text-rose-gulabi fill-rose-gulabi mx-0.5" /> in India.</p>
+          <div className="flex gap-5">
+            <span className="hover:text-ivory transition-colors cursor-pointer">Pan-India Express Logistics</span>
+            <span className="hover:text-ivory transition-colors cursor-pointer">100% Artisan Authenticity</span>
+            <span className="hover:text-ivory transition-colors cursor-pointer">Plastic-Free Packaging</span>
           </div>
         </div>
       </div>

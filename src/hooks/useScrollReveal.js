@@ -37,3 +37,4 @@ export function formatPrice(amount) {
     maximumFractionDigits: 0,
   }).format(amount)
 }
+

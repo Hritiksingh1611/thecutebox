@@ -3,78 +3,96 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    @apply bg-cream-light text-charcoal font-sans antialiased;
+    @apply bg-ivory text-indigo-deep font-sans antialiased;
     -webkit-font-smoothing: antialiased;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF6B1A' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
-  h1, h2, h3, h4, h5 {
-    @apply font-display;
-  }
+  h1, h2, h3, h4, h5 { @apply font-display; }
 
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-cream;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-terracotta-300 rounded-full;
-  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-ivory-dark; }
+  ::-webkit-scrollbar-thumb { @apply bg-saffron-300 rounded-full; }
 }
 
 @layer components {
+  /* ── Buttons ── */
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-terracotta-500 text-white px-6 py-3 rounded-full font-sans font-semibold text-sm tracking-wide hover:bg-terracotta-600 active:bg-terracotta-700 transition-all duration-200 shadow-warm hover:shadow-warm-lg hover:-translate-y-0.5;
+    @apply inline-flex items-center gap-2 bg-saffron-500 text-white px-6 py-3 rounded-full font-sans font-bold text-sm tracking-wide
+           hover:bg-saffron-600 active:bg-saffron-700 transition-all duration-200 shadow-warm hover:shadow-warm-lg hover:-translate-y-0.5;
   }
-
+  .btn-teal {
+    @apply inline-flex items-center gap-2 bg-teal-500 text-white px-6 py-3 rounded-full font-sans font-bold text-sm tracking-wide
+           hover:bg-teal-600 transition-all duration-200 shadow-teal hover:-translate-y-0.5;
+  }
   .btn-secondary {
-    @apply inline-flex items-center gap-2 bg-cream text-charcoal border border-terracotta-200 px-6 py-3 rounded-full font-sans font-semibold text-sm tracking-wide hover:bg-terracotta-50 hover:border-terracotta-400 active:bg-terracotta-100 transition-all duration-200;
+    @apply inline-flex items-center gap-2 bg-ivory border-2 border-saffron-200 text-saffron-600 px-6 py-3 rounded-full font-sans font-bold text-sm tracking-wide
+           hover:bg-saffron-50 hover:border-saffron-400 transition-all duration-200;
   }
-
   .btn-ghost {
-    @apply inline-flex items-center gap-2 text-terracotta-500 px-4 py-2 rounded-full font-sans font-semibold text-sm tracking-wide hover:bg-terracotta-50 transition-all duration-200;
+    @apply inline-flex items-center gap-2 text-saffron-500 px-4 py-2 rounded-full font-sans font-semibold text-sm
+           hover:bg-saffron-50 transition-all duration-200;
+  }
+  .btn-dark {
+    @apply inline-flex items-center gap-2 bg-indigo-deep text-ivory px-6 py-3 rounded-full font-sans font-bold text-sm tracking-wide
+           hover:bg-indigo-rich transition-all duration-200;
   }
 
-  .card {
-    @apply bg-white rounded-3xl shadow-warm overflow-hidden;
-  }
+  /* ── Layout ── */
+  .container-site { @apply max-w-7xl mx-auto px-5 md:px-8 lg:px-12; }
+  .section-pad    { @apply py-16 md:py-24 lg:py-32; }
 
-  .section-pad {
-    @apply py-16 md:py-24 lg:py-32;
-  }
+  /* ── Cards ── */
+  .card { @apply bg-white rounded-3xl shadow-warm overflow-hidden; }
 
-  .container-site {
-    @apply max-w-7xl mx-auto px-5 md:px-8 lg:px-12;
-  }
-
+  /* ── Tags ── */
   .tag {
-    @apply inline-flex items-center gap-1 text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full;
+    @apply inline-flex items-center gap-1 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full;
   }
 
+  /* ── Form ── */
   .input-field {
-    @apply w-full bg-cream-light border border-terracotta-100 rounded-xl px-4 py-3 font-sans text-sm text-charcoal placeholder:text-charcoal-muted focus:outline-none focus:border-terracotta-500 focus:ring-2 focus:ring-terracotta-200 transition-all duration-200;
+    @apply w-full bg-ivory border-2 border-saffron-100 rounded-xl px-4 py-3 font-sans text-sm text-indigo-deep
+           placeholder:text-earth-pale focus:outline-none focus:border-saffron-400 focus:ring-2 focus:ring-saffron-100 transition-all duration-200;
   }
 
+  /* ── Decorative border ── */
+  .border-festive {
+    border-image: linear-gradient(90deg, #FF6B1A, #E91E8C, #FFB347, #00897B, #FF6B1A) 1;
+  }
+
+  /* ── Indian decorative divider ── */
+  .divider-indian {
+    @apply flex items-center gap-3;
+  }
+  .divider-indian::before,
+  .divider-indian::after {
+    content: '';
+    @apply flex-1 h-px bg-gradient-to-r from-transparent via-saffron-200 to-transparent;
+  }
+
+  /* ── Product card hover ── */
   .product-card-hover {
-    @apply hover:shadow-product-hover hover:-translate-y-1 transition-all duration-300;
+    @apply hover:shadow-warm-lg hover:-translate-y-1.5 transition-all duration-300;
+  }
+
+  /* ── Paisley pattern overlay ── */
+  .paisley-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='35' fill='none' stroke='%23FF6B1A' stroke-opacity='0.08' stroke-width='2'/%3E%3Ccircle cx='40' cy='40' r='20' fill='none' stroke='%23FF6B1A' stroke-opacity='0.06' stroke-width='1'/%3E%3Ccircle cx='40' cy='40' r='5' fill='%23FF6B1A' fill-opacity='0.05'/%3E%3C/svg%3E");
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .text-balance    { text-wrap: balance; }
+  .gradient-text-saffron {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #FF6B1A, #E91E8C);
   }
-
-  .writing-mode-vertical {
-    writing-mode: vertical-rl;
-  }
-
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-terracotta-500 to-rose-warm;
+  .gradient-text-festive {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #FF9933, #E91E8C, #00897B);
   }
 }

@@ -74,3 +74,4 @@ Returns formatted INR string using `Intl.NumberFormat`.
 | `ids` | `string[]` |
 | `toggle(id)` | Adds or removes |
 | `has(id)` | Returns boolean |
+

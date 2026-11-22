@@ -82,3 +82,4 @@ Uses Tailwind default spacing + custom:
 | `rounded-3xl` | `1.5rem` — product cards |
 | `rounded-4xl` | `2rem` — section cards |
 | `rounded-full` | `9999px` — buttons, tags |
+

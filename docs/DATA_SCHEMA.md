@@ -67,3 +67,4 @@ interface CartItem extends Product {
 |---|---|
 | `src/data/products.js` | `products`, `categories`, `occasions`, `getProductById`, `getProductBySlug`, `getByCategory`, `getFeatured` |
 | `src/data/testimonials.js` | `testimonials`, `artisans` |
+

@@ -79,3 +79,4 @@ For future backend integration, add a `.env` file:
 ```
 VITE_API_URL=https://api.thecutebox.in
 ```
+

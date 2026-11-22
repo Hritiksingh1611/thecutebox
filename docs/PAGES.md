@@ -33,3 +33,4 @@
 - `vite.config.js` sets `base: '/thecutebox/'`
 - `ScrollToTop` component resets scroll on route change
 - CartDrawer is global (outside Routes, inside HashRouter)
+

@@ -1,82 +1,74 @@
+const BASE = import.meta.env.BASE_URL || '/thecutebox/'
+
 export const testimonials = [
   {
     id: 't1',
-    name: 'Ananya Krishnan',
-    location: 'Mumbai',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80',
+    name: 'Dr. Radhika Sen',
+    location: 'South Delhi',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80',
     rating: 5,
-    text: "I gifted the Grand Birthday Hamper to my best friend and she literally cried happy tears. The packaging was museum-quality — every item wrapped with such care. This is my go-to gifting brand now.",
-    product: 'Grand Birthday Hamper',
-    occasion: 'Birthday',
+    text: "Sent the Maha Utsav Hamper to my in-laws for Griha Pravesh. The brass Ganesha, the marigold fragrance, the hand-calligraphed card — they were completely overwhelmed. Pure royal elegance!",
+    product: 'Maha Utsav Grand Heritage Hamper',
+    occasion: 'Griha Pravesh'
   },
   {
     id: 't2',
-    name: 'Rahul Mehta',
-    location: 'Bangalore',
+    name: 'Vikram & Shreya Singhania',
+    location: 'Indiranagar, Bangalore',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
     rating: 5,
-    text: "Built a custom box for my wife's anniversary. The 'Build Your Box' feature is incredibly intuitive. It arrived in a beautiful terracotta-toned box with a handwritten note. She absolutely loved it!",
+    text: "We ordered 80 custom boxes for our sister’s wedding return gifts. Each guest called us personally to praise the hand-painted diyas and royal chai kit. Customer service was remarkable.",
     product: 'Custom Build Box',
-    occasion: 'Anniversary',
+    occasion: 'Wedding Gifting'
   },
   {
     id: 't3',
-    name: 'Priyanka Desai',
-    location: 'Pune',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80',
+    name: 'Ananya Deshmukh',
+    location: 'Koregaon Park, Pune',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80',
     rating: 5,
-    text: "The Lavender Mist Wellness Box was like a spa day in a box. The soy candle smells divine and the packaging was so premium. Next day delivery to Pune was a bonus!",
-    product: 'Lavender Mist Wellness Box',
-    occasion: 'Self Care',
+    text: "The brass pooja thali set has such weight and heirloom craftsmanship! In a world of plastic and cheap imports, thecutebox feels like a breath of authentic Indian pride.",
+    product: 'Moradabad Royal Brass Pooja Thali',
+    occasion: 'Diwali & Pooja'
   },
   {
     id: 't4',
-    name: 'Siddharth Roy',
-    location: 'Delhi',
+    name: 'Aditya Birla Capital Team',
+    location: 'BKC, Mumbai',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80',
     rating: 5,
-    text: "Ordered 50 corporate Diwali hampers and the team at thecutebox handled everything flawlessly — custom branding, delivery tracking, the works. Our clients were truly impressed.",
-    product: 'Corporate Hampers',
-    occasion: 'Diwali',
-  },
-  {
-    id: 't5',
-    name: 'Kavya Nair',
-    location: 'Chennai',
-    avatar: 'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=100&q=80',
-    rating: 5,
-    text: "What I love most is that every product has an artisan story. I can feel the love and craft that goes into each item. The Resin Art Tray is absolutely stunning!",
-    product: 'Resin Art Tray Set',
-    occasion: 'Birthday',
-  },
+    text: "Seamless corporate festive gifting! 250 hampers delivered across 14 cities in India on the exact requested date. The custom branded sleeve and handwritten touch made our clients feel deeply valued.",
+    product: 'Corporate Festival Hampers',
+    occasion: 'Diwali Corporate'
+  }
 ]
 
 export const artisans = [
   {
     id: 'a1',
-    name: 'Priya Sharma',
-    craft: 'Soy Candle Maker',
-    location: 'Jaipur, Rajasthan',
-    story: "Priya left her corporate career in 2019 to pursue her passion for clean, botanical candle-making. Each candle is handpoured in small batches using 100% soy wax and pure essential oils.",
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80',
-    productCount: 6,
+    name: 'Ramesh Kumawat',
+    craft: 'Master Terracotta Artisan',
+    location: 'Kumhar Gram, Jaipur',
+    story: 'Carrying forward seven generations of earthen pottery. Rameshji sculpts clay from the riverbeds of Rajasthan and uses organic mineral pigments for festive rangoli diyas.',
+    avatar: `${BASE}images/artisan-rajasthan.jpg`,
+    productCount: 4
   },
   {
     id: 'a2',
-    name: 'Kavita Rao',
-    craft: 'Resin & Mixed Media Artist',
-    location: 'Pune, Maharashtra',
-    story: "A self-taught resin artist, Kavita creates one-of-a-kind functional art pieces using pressed wildflowers she collects during her morning walks.",
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80',
-    productCount: 4,
+    name: 'Sunita & Mohan Devi',
+    craft: 'Dabu & Indigo Block Printers',
+    location: 'Bagru Village, Rajasthan',
+    story: 'Championing sustainable block printing powered by sun and river water. Their studio employs 22 women weavers and artisans across rural Bagru.',
+    avatar: `${BASE}images/product-block-print.jpg`,
+    productCount: 3
   },
   {
     id: 'a3',
-    name: 'Meera Joshi',
-    craft: 'Ceramic Artist & Potter',
-    location: 'Bangalore, Karnataka',
-    story: "Meera's pottery studio started as a weekend hobby. Today she hand-throws every piece on a traditional kick-wheel, with glazes inspired by the natural landscape of Karnataka.",
-    avatar: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=200&q=80',
-    productCount: 5,
-  },
+    name: 'Nazeer Ahmed Khan',
+    craft: 'Heritage Saffron & Spice Cultivator',
+    location: 'Pampore, Kashmir Valley',
+    story: 'Harvesting purple saffron blossoms by hand on the cold plateaus of Kashmir at dawn. Pure Mongra grade kesar preserved with ancestral reverence.',
+    avatar: `${BASE}images/product-chai-kit.jpg`,
+    productCount: 3
+  }
 ]

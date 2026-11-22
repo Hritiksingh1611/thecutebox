@@ -3,145 +3,212 @@ import { Check, ArrowRight, ArrowLeft, Package, Sparkles, Gift } from 'lucide-re
 import { products } from '../data/products'
 import { useCartStore } from '../store/cartStore'
 
-const STEP_LABELS = ['Choose Items', 'Personalise', 'Review & Add']
+const BASE = import.meta.env.BASE_URL || '/thecutebox/'
+
+const STEP_LABELS = ['Choose Craft Items', 'Festive Packaging', 'Review & Bless']
 
 const WRAP_OPTIONS = [
-  { id: 'classic', label: 'Classic Kraft', emoji: '📦', desc: 'Natural kraft paper with raffia ribbon', extra: 0 },
-  { id: 'luxury', label: 'Luxury Velvet', emoji: '💎', desc: 'Premium velvet box with satin ribbon', extra: 199 },
-  { id: 'seasonal', label: 'Seasonal Theme', emoji: '🌸', desc: 'Hand-decorated seasonal wrapping', extra: 149 },
+  {
+    id: 'kraft-marigold',
+    label: 'Terracotta Kraft with Fresh Marigold',
+    emoji: '🌼',
+    desc: 'Eco-friendly recycled kraft box wrapped in natural jute ribbon with a real dried marigold blossom',
+    extra: 0,
+  },
+  {
+    id: 'banarasi-silk',
+    label: 'Royal Banarasi Silk Potli & Box',
+    emoji: '👑',
+    desc: 'Lined in saffron raw silk with golden zari border ribbon and brass peacock seal',
+    extra: 249,
+  },
+  {
+    id: 'bagru-blockprint',
+    label: 'Dabu Hand-Block Cotton Fabric Wrap',
+    emoji: '🎨',
+    desc: 'Japanese Furoshiki style wrap made from authentic Indigo block-print cotton from Bagru',
+    extra: 199,
+  },
 ]
 
 export default function BuildYourBoxPage() {
   const [step, setStep] = useState(0)
   const [selected, setSelected] = useState([])
-  const [wrap, setWrap] = useState('classic')
+  const [wrap, setWrap] = useState('kraft-marigold')
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
   const { addItem } = useCartStore()
   const [added, setAdded] = useState(false)
 
   const toggleProduct = (p) => {
-    setSelected(sel =>
-      sel.find(s => s.id === p.id)
-        ? sel.filter(s => s.id !== p.id)
-        : sel.length < 6 ? [...sel, p] : sel
+    setSelected((sel) =>
+      sel.find((s) => s.id === p.id)
+        ? sel.filter((s) => s.id !== p.id)
+        : sel.length < 6
+        ? [...sel, p]
+        : sel
     )
   }
 
-  const selectedWrap = WRAP_OPTIONS.find(w => w.id === wrap)
+  const selectedWrap = WRAP_OPTIONS.find((w) => w.id === wrap)
   const subtotal = selected.reduce((s, p) => s + p.price, 0) + (selectedWrap?.extra || 0)
 
   const handleAddToCart = () => {
-    // Create a custom bundle product
     const bundle = {
-      id: `custom-${Date.now()}`,
-      name: `Custom Gift Box (${selected.length} items)`,
-      artisan: 'Built by you, packed by us',
+      id: `custom-indian-box-${Date.now()}`,
+      name: `Custom Indian Artisan Box (${selected.length} items)`,
+      artisan: 'Curated by You • Hand-packed in Jaipur',
       price: subtotal,
-      images: selected[0]?.images || ['https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80'],
+      images: [selected[0]?.images?.[0] || selected[0]?.image || `${BASE}images/hero-gift.jpg`],
+      image: selected[0]?.images?.[0] || selected[0]?.image || `${BASE}images/hero-gift.jpg`,
       inStock: true,
+      customDetails: {
+        wrap: selectedWrap?.label,
+        recipient: name,
+        message: message,
+      },
     }
     addItem(bundle)
     setAdded(true)
   }
 
   return (
-    <main className="pt-28 pb-20 min-h-screen bg-cream-light">
+    <main className="pt-28 pb-20 min-h-screen bg-ivory">
       <div className="container-site max-w-5xl">
         {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 text-terracotta-500 text-xs font-bold tracking-widest uppercase mb-3">
+        <div className="text-center mb-10 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 text-saffron-600 text-xs font-bold tracking-widest uppercase mb-3 bg-saffron-100 px-4 py-1.5 rounded-full">
             <Sparkles size={14} />
-            Custom Gift Builder
+            Shubh Custom Box Builder
           </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-charcoal mb-3">Build Your Box</h1>
-          <p className="text-charcoal-muted">Pick up to 6 artisan items, personalise, and we'll hand-pack it beautifully.</p>
+          <h1 className="font-display text-4xl sm:text-5xl font-bold text-indigo-deep mb-3">
+            Build Your Own Gift Box
+          </h1>
+          <p className="text-indigo-deep/70 text-sm sm:text-base">
+            Hand-select up to 6 artisan treasures. We hand-pack each box with fragrant petals and your handwritten note.
+          </p>
         </div>
 
-        {/* Step indicator */}
-        <div className="flex items-center justify-center gap-0 mb-12">
+        {/* Step Indicator */}
+        <div className="flex items-center justify-center gap-1 sm:gap-2 mb-12">
           {STEP_LABELS.map((label, i) => (
             <div key={label} className="flex items-center">
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                i === step ? 'bg-terracotta-500 text-white shadow-warm' :
-                i < step ? 'bg-terracotta-100 text-terracotta-500' :
-                'bg-cream text-charcoal-muted'
-              }`}>
-                {i < step ? <Check size={14} /> : <span className="w-4 text-center">{i + 1}</span>}
+              <div
+                className={`flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all ${
+                  i === step
+                    ? 'bg-saffron-500 text-white shadow-warm'
+                    : i < step
+                    ? 'bg-saffron-100 text-saffron-700'
+                    : 'bg-white text-earth-light border border-saffron-100'
+                }`}
+              >
+                {i < step ? <Check size={14} /> : <span>{i + 1}</span>}
                 <span className="hidden sm:inline">{label}</span>
               </div>
               {i < STEP_LABELS.length - 1 && (
-                <div className={`h-0.5 w-8 mx-1 transition-all ${i < step ? 'bg-terracotta-400' : 'bg-cream-warm'}`} />
+                <div
+                  className={`h-0.5 w-6 sm:w-10 mx-1 ${
+                    i < step ? 'bg-saffron-400' : 'bg-saffron-100'
+                  }`}
+                />
               )}
             </div>
           ))}
         </div>
 
-        {/* Step 0: Choose items */}
+        {/* Step 0: Choose Items */}
         {step === 0 && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-display text-2xl font-bold text-charcoal">
-                Choose Your Items
-                <span className="text-base text-charcoal-muted font-sans font-normal ml-3">({selected.length}/6 selected)</span>
+              <h2 className="font-display text-2xl font-bold text-indigo-deep">
+                Select Up to 6 Treasures
+                <span className="text-sm font-sans font-normal text-earth-light ml-3">
+                  ({selected.length}/6 selected)
+                </span>
               </h2>
             </div>
 
-            {/* Selected bar */}
+            {/* Selected items strip */}
             {selected.length > 0 && (
-              <div className="bg-terracotta-50 border border-terracotta-200 rounded-2xl p-4 mb-6 flex items-center gap-3 overflow-x-auto">
-                {selected.map(p => (
-                  <div key={p.id} className="relative flex-shrink-0">
-                    <img src={p.images[0]} alt={p.name} className="w-14 h-14 rounded-xl object-cover border-2 border-terracotta-300" />
-                    <button
-                      onClick={() => toggleProduct(p)}
-                      className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-terracotta-500 text-white flex items-center justify-center text-xs"
-                    >×</button>
-                  </div>
-                ))}
-                <div className="flex-shrink-0 text-sm text-charcoal-muted">
-                  Subtotal: <span className="font-bold text-terracotta-500">₹{selected.reduce((s, p) => s + p.price, 0).toLocaleString('en-IN')}</span>
+              <div className="bg-white border-2 border-saffron-300 rounded-3xl p-4 mb-8 flex items-center justify-between gap-4 overflow-x-auto shadow-warm-sm">
+                <div className="flex items-center gap-3">
+                  {selected.map((p) => {
+                    const imgSrc = p.images?.[0] || p.image
+                    return (
+                      <div key={p.id} className="relative flex-shrink-0 group">
+                        <img
+                          src={imgSrc}
+                          alt={p.name}
+                          className="w-14 h-14 rounded-2xl object-cover border-2 border-saffron-400"
+                        />
+                        <button
+                          onClick={() => toggleProduct(p)}
+                          className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-saffron-600 text-white flex items-center justify-center text-xs font-bold shadow"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="flex-shrink-0 text-sm font-bold text-indigo-deep pr-2">
+                  Subtotal: <span className="text-saffron-600 text-base">₹{subtotal.toLocaleString('en-IN')}</span>
                 </div>
               </div>
             )}
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {products.filter(p => p.inStock).map(p => {
-                const isSelected = selected.find(s => s.id === p.id)
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {products.map((p) => {
+                const isSelected = selected.find((s) => s.id === p.id)
+                const imgSrc = p.images?.[0] || p.image
                 return (
                   <button
                     key={p.id}
                     onClick={() => toggleProduct(p)}
-                    className={`text-left rounded-2xl overflow-hidden border-2 transition-all duration-200 ${
+                    className={`text-left rounded-3xl overflow-hidden border-2 transition-all duration-300 flex flex-col justify-between ${
                       isSelected
-                        ? 'border-terracotta-500 shadow-warm bg-terracotta-50'
-                        : 'border-transparent bg-white shadow-warm-sm hover:border-terracotta-300'
+                        ? 'border-saffron-500 shadow-warm-lg bg-saffron-50/50 scale-[1.02]'
+                        : 'border-saffron-100 bg-white hover:border-saffron-300 shadow-sm'
                     }`}
                   >
-                    <div className="relative aspect-video overflow-hidden">
-                      <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
+                    <div className="relative aspect-video w-full overflow-hidden bg-ivory-warm">
+                      <img src={imgSrc} alt={p.name} className="w-full h-full object-cover" />
                       {isSelected && (
-                        <div className="absolute top-2 right-2 w-6 h-6 bg-terracotta-500 rounded-full flex items-center justify-center">
-                          <Check size={14} className="text-white" />
+                        <div className="absolute top-3 right-3 w-7 h-7 bg-saffron-500 rounded-full flex items-center justify-center shadow-md">
+                          <Check size={16} className="text-white" />
                         </div>
                       )}
                     </div>
-                    <div className="p-3">
-                      <p className="font-semibold text-sm text-charcoal line-clamp-1">{p.name}</p>
-                      <p className="text-terracotta-500 font-bold text-sm">₹{p.price.toLocaleString('en-IN')}</p>
+                    <div className="p-4 flex-1 flex flex-col justify-between">
+                      <div>
+                        <p className="text-[10px] uppercase font-bold text-saffron-600 mb-1">
+                          {p.artisan}
+                        </p>
+                        <p className="font-display font-semibold text-sm text-indigo-deep line-clamp-1">
+                          {p.name}
+                        </p>
+                      </div>
+                      <div className="mt-3 pt-2 border-t border-saffron-50 flex items-center justify-between">
+                        <span className="font-bold text-saffron-600 text-base">
+                          ₹{p.price.toLocaleString('en-IN')}
+                        </span>
+                        <span className="text-xs font-semibold text-indigo-deep/70">
+                          {isSelected ? '✓ Added' : '+ Add Item'}
+                        </span>
+                      </div>
                     </div>
                   </button>
                 )
               })}
             </div>
 
-            <div className="flex justify-end mt-8">
+            <div className="flex justify-end mt-10">
               <button
                 onClick={() => setStep(1)}
                 disabled={selected.length === 0}
-                className="btn-primary text-base px-8 py-4 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="btn-primary text-base px-8 py-4 disabled:opacity-40 disabled:cursor-not-allowed shadow-warm"
               >
-                Next: Personalise <ArrowRight size={18} />
+                Next: Festive Packaging <ArrowRight size={18} />
               </button>
             </div>
           </div>
@@ -149,47 +216,25 @@ export default function BuildYourBoxPage() {
 
         {/* Step 1: Personalise */}
         {step === 1 && (
-          <div className="max-w-2xl mx-auto">
-            <h2 className="font-display text-2xl font-bold text-charcoal mb-8">Personalise Your Box</h2>
+          <div className="max-w-2xl mx-auto bg-white rounded-3xl p-6 sm:p-10 shadow-warm border border-saffron-100">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-indigo-deep mb-6">
+              Personalise Your Gift Experience
+            </h2>
 
             <div className="space-y-6">
-              {/* Gift message */}
+              {/* Packaging Options */}
               <div>
-                <label className="block font-semibold text-sm text-charcoal mb-2">Personal Message</label>
-                <textarea
-                  value={message}
-                  onChange={e => setMessage(e.target.value)}
-                  maxLength={200}
-                  rows={3}
-                  placeholder="Write a heartfelt message (up to 200 characters)…"
-                  className="input-field resize-none"
-                />
-                <p className="text-xs text-charcoal-muted mt-1 text-right">{message.length}/200</p>
-              </div>
-
-              {/* Recipient name */}
-              <div>
-                <label className="block font-semibold text-sm text-charcoal mb-2">Recipient's Name (for custom ribbon)</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  placeholder="e.g. Priya, Rahul, Dr. Mehta…"
-                  className="input-field"
-                />
-              </div>
-
-              {/* Wrapping */}
-              <div>
-                <label className="block font-semibold text-sm text-charcoal mb-3">Choose Your Wrapping</label>
+                <label className="block font-bold text-sm text-indigo-deep mb-3">
+                  Choose Your Heritage Packaging Style
+                </label>
                 <div className="space-y-3">
-                  {WRAP_OPTIONS.map(opt => (
+                  {WRAP_OPTIONS.map((opt) => (
                     <label
                       key={opt.id}
-                      className={`flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${
+                      className={`flex items-start gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${
                         wrap === opt.id
-                          ? 'border-terracotta-500 bg-terracotta-50'
-                          : 'border-terracotta-100 bg-white hover:border-terracotta-300'
+                          ? 'border-saffron-500 bg-saffron-50/60 shadow-sm'
+                          : 'border-saffron-100 bg-ivory/40 hover:border-saffron-300'
                       }`}
                     >
                       <input
@@ -200,25 +245,65 @@ export default function BuildYourBoxPage() {
                         onChange={() => setWrap(opt.id)}
                         className="sr-only"
                       />
-                      <span className="text-2xl">{opt.emoji}</span>
+                      <span className="text-3xl mt-0.5">{opt.emoji}</span>
                       <div className="flex-1">
-                        <p className="font-semibold text-sm text-charcoal">{opt.label}</p>
-                        <p className="text-xs text-charcoal-muted">{opt.desc}</p>
+                        <div className="flex items-center justify-between">
+                          <p className="font-display font-bold text-sm text-indigo-deep">
+                            {opt.label}
+                          </p>
+                          <span className="text-xs font-bold text-saffron-600">
+                            {opt.extra > 0 ? `+₹${opt.extra}` : 'Included'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-earth-light mt-1">{opt.desc}</p>
                       </div>
-                      <span className="text-sm font-bold text-terracotta-500">
-                        {opt.extra > 0 ? `+₹${opt.extra}` : 'Free'}
-                      </span>
                     </label>
                   ))}
                 </div>
               </div>
+
+              {/* Recipient's Name */}
+              <div>
+                <label className="block font-bold text-sm text-indigo-deep mb-1.5">
+                  Recipient Name (Hand-lettered on Gift Sleeve)
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="e.g., Priya & Rohan, Dadi Ma, Sharma Family…"
+                  className="input-field"
+                />
+              </div>
+
+              {/* Message */}
+              <div>
+                <label className="block font-bold text-sm text-indigo-deep mb-1.5">
+                  Blessing / Handwritten Card Note
+                </label>
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  maxLength={250}
+                  rows={3}
+                  placeholder="May this festive season bring immense prosperity, health, and joy to your abode…"
+                  className="input-field resize-none"
+                />
+                <p className="text-xs text-earth-light mt-1 text-right">{message.length}/250 characters</p>
+              </div>
             </div>
 
-            <div className="flex gap-3 justify-between mt-10">
-              <button onClick={() => setStep(0)} className="btn-secondary flex items-center gap-2">
-                <ArrowLeft size={16} /> Back
+            <div className="flex gap-4 justify-between mt-10 pt-6 border-t border-saffron-100">
+              <button
+                onClick={() => setStep(0)}
+                className="btn-secondary flex items-center gap-2"
+              >
+                <ArrowLeft size={16} /> Back to Items
               </button>
-              <button onClick={() => setStep(2)} className="btn-primary text-base px-8 py-4">
+              <button
+                onClick={() => setStep(2)}
+                className="btn-primary text-base px-8 py-3.5 shadow-warm"
+              >
                 Review Box <ArrowRight size={18} />
               </button>
             </div>
@@ -228,62 +313,124 @@ export default function BuildYourBoxPage() {
         {/* Step 2: Review */}
         {step === 2 && (
           <div className="max-w-2xl mx-auto">
-            <h2 className="font-display text-2xl font-bold text-charcoal mb-8">Your Custom Box</h2>
-
             {!added ? (
-              <>
-                {/* Items */}
-                <div className="bg-white rounded-3xl p-6 shadow-warm mb-4">
-                  <h3 className="font-semibold text-sm text-charcoal-muted uppercase tracking-wider mb-4">Your Items ({selected.length})</h3>
-                  <div className="space-y-3">
-                    {selected.map(p => (
-                      <div key={p.id} className="flex items-center gap-3">
-                        <img src={p.images[0]} alt={p.name} className="w-12 h-12 rounded-xl object-cover" />
-                        <span className="flex-1 text-sm font-medium text-charcoal">{p.name}</span>
-                        <span className="text-sm font-bold text-terracotta-500">₹{p.price.toLocaleString('en-IN')}</span>
-                      </div>
-                    ))}
+              <div className="space-y-6">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-warm border border-saffron-100">
+                  <h3 className="font-display font-bold text-xl text-indigo-deep mb-4 flex items-center justify-between">
+                    <span>Your Custom Curation ({selected.length} items)</span>
+                    <button
+                      onClick={() => setStep(0)}
+                      className="text-xs text-saffron-600 font-bold hover:underline"
+                    >
+                      Edit Items
+                    </button>
+                  </h3>
+                  <div className="space-y-3.5">
+                    {selected.map((p) => {
+                      const imgSrc = p.images?.[0] || p.image
+                      return (
+                        <div key={p.id} className="flex items-center gap-3.5 py-2 border-b border-saffron-50 last:border-none">
+                          <img
+                            src={imgSrc}
+                            alt={p.name}
+                            className="w-14 h-14 rounded-2xl object-cover border border-saffron-100"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <p className="font-display font-semibold text-sm text-indigo-deep truncate">
+                              {p.name}
+                            </p>
+                            <p className="text-[11px] text-earth-light">{p.artisan}</p>
+                          </div>
+                          <span className="font-bold text-saffron-600 text-sm">
+                            ₹{p.price.toLocaleString('en-IN')}
+                          </span>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
 
-                {/* Personalisation */}
-                <div className="bg-white rounded-3xl p-6 shadow-warm mb-4">
-                  <h3 className="font-semibold text-sm text-charcoal-muted uppercase tracking-wider mb-4">Personalisation</h3>
-                  <div className="space-y-2 text-sm">
-                    <p><span className="text-charcoal-muted">Wrapping:</span> <span className="font-semibold">{selectedWrap?.label}</span></p>
-                    {name && <p><span className="text-charcoal-muted">Ribbon name:</span> <span className="font-semibold">{name}</span></p>}
-                    {message && <p><span className="text-charcoal-muted">Message:</span> <span className="italic">"{message}"</span></p>}
+                {/* Personalisation details */}
+                <div className="bg-white rounded-3xl p-6 shadow-warm border border-saffron-100">
+                  <h3 className="font-display font-bold text-lg text-indigo-deep mb-3 flex items-center justify-between">
+                    <span>Festive Details</span>
+                    <button
+                      onClick={() => setStep(1)}
+                      className="text-xs text-saffron-600 font-bold hover:underline"
+                    >
+                      Edit Details
+                    </button>
+                  </h3>
+                  <div className="space-y-2 text-sm text-indigo-deep">
+                    <p>
+                      <strong className="text-earth-light">Packaging:</strong> {selectedWrap?.label}
+                    </p>
+                    {name && (
+                      <p>
+                        <strong className="text-earth-light">Recipient:</strong> {name}
+                      </p>
+                    )}
+                    {message && (
+                      <p className="italic bg-ivory p-3 rounded-2xl border border-saffron-100 text-xs">
+                        "{message}"
+                      </p>
+                    )}
                   </div>
                 </div>
 
-                {/* Total */}
-                <div className="bg-terracotta-50 rounded-3xl p-6 border border-terracotta-200 mb-6">
-                  <div className="flex justify-between items-center">
-                    <span className="font-display font-bold text-lg text-charcoal">Total</span>
-                    <span className="font-bold text-2xl text-terracotta-500">₹{subtotal.toLocaleString('en-IN')}</span>
+                {/* Total card */}
+                <div className="bg-gradient-to-br from-saffron-500 to-rose-gulabi text-white rounded-3xl p-6 shadow-warm-lg flex items-center justify-between">
+                  <div>
+                    <span className="text-xs uppercase font-bold tracking-wider opacity-85 block">
+                      Total Box Value
+                    </span>
+                    <span className="font-display font-bold text-3xl">
+                      ₹{subtotal.toLocaleString('en-IN')}
+                    </span>
+                    {subtotal >= 1999 && (
+                      <p className="text-xs mt-1 text-ivory">🎉 Includes Free Express Pan-India Delivery</p>
+                    )}
                   </div>
-                  {subtotal >= 1999 && (
-                    <p className="text-xs text-green-600 font-semibold mt-2">🎉 Free express delivery included!</p>
-                  )}
-                </div>
 
-                <div className="flex gap-3 justify-between">
-                  <button onClick={() => setStep(1)} className="btn-secondary flex items-center gap-2">
-                    <ArrowLeft size={16} /> Back
-                  </button>
-                  <button onClick={handleAddToCart} className="btn-primary text-base px-8 py-4">
-                    Add Box to Cart <Gift size={18} />
-                  </button>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setStep(1)}
+                      className="bg-white/20 hover:bg-white/30 text-white font-bold px-5 py-3 rounded-full text-sm"
+                    >
+                      Back
+                    </button>
+                    <button
+                      onClick={handleAddToCart}
+                      className="bg-white text-saffron-600 hover:bg-ivory font-bold px-7 py-3 rounded-full text-sm shadow-md transition-all active:scale-95 flex items-center gap-2"
+                    >
+                      <Gift size={16} /> Add Box to Cart
+                    </button>
+                  </div>
                 </div>
-              </>
+              </div>
             ) : (
-              <div className="text-center py-16">
-                <div className="text-6xl mb-4">🎁</div>
-                <h3 className="font-display text-2xl font-bold text-charcoal mb-2">Your box is ready!</h3>
-                <p className="text-charcoal-muted mb-6">Added to your cart. We'll hand-pack it with love.</p>
-                <div className="flex gap-3 justify-center">
-                  <a href="/" className="btn-primary">Continue Shopping</a>
-                  <button onClick={handleAddToCart} className="btn-secondary">View Cart</button>
+              <div className="text-center py-16 bg-white rounded-3xl shadow-warm border border-saffron-100 p-8">
+                <div className="text-6xl mb-4">🪔</div>
+                <h3 className="font-display text-3xl font-bold text-indigo-deep mb-3">
+                  Your Box is Hand-packed &amp; Added!
+                </h3>
+                <p className="text-earth-light text-base max-w-md mx-auto mb-8">
+                  Your customized curation has been added to your bag. Our studio artisans in Jaipur will hand-pack it with fresh petals upon checkout.
+                </p>
+                <div className="flex flex-wrap gap-4 justify-center">
+                  <a href="/" className="btn-primary">
+                    Continue Exploring
+                  </a>
+                  <button
+                    onClick={() => {
+                      setAdded(false)
+                      setSelected([])
+                      setStep(0)
+                    }}
+                    className="btn-secondary"
+                  >
+                    Build Another Box
+                  </button>
                 </div>
               </div>
             )}
