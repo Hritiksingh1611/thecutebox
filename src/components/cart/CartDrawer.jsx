@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { X, Trash2, Minus, Plus, Tag, ArrowRight } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { X, Trash2, Minus, Plus, Tag, MapPin, User, Phone, Home, FileText, CheckCircle2 } from 'lucide-react'
 import { useCartStore } from '../../store/cartStore'
 
 const WHATSAPP_BUSINESS_NUMBER = '919831559109'
@@ -17,6 +17,17 @@ function WhatsAppIcon({ className = 'w-5 h-5' }) {
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQty } = useCartStore()
+  const deliveryFormRef = useRef(null)
+
+  // Delivery Details state (pre-filled from localStorage if available)
+  const [customerName, setCustomerName] = useState(() => localStorage.getItem('thecutebox_name') || '')
+  const [customerPhone, setCustomerPhone] = useState(() => localStorage.getItem('thecutebox_phone') || '')
+  const [customerAddress, setCustomerAddress] = useState(() => localStorage.getItem('thecutebox_address') || '')
+  const [customerPincode, setCustomerPincode] = useState(() => localStorage.getItem('thecutebox_pincode') || '')
+  const [customerCity, setCustomerCity] = useState(() => localStorage.getItem('thecutebox_city') || 'Kolkata, WB')
+  const [customerGiftNote, setCustomerGiftNote] = useState(() => localStorage.getItem('thecutebox_gift_note') || '')
+
+  const [validationErrors, setValidationErrors] = useState({})
 
   // Coupon state
   const [couponCode, setCouponCode] = useState('')
@@ -39,6 +50,33 @@ export default function CartDrawer() {
       document.body.style.overflow = ''
     }
   }, [isOpen])
+
+  // Sync delivery field and save to localStorage
+  const updateDeliveryField = (field, value) => {
+    if (validationErrors[field]) {
+      setValidationErrors((prev) => ({ ...prev, [field]: '' }))
+    }
+
+    if (field === 'name') {
+      setCustomerName(value)
+      localStorage.setItem('thecutebox_name', value)
+    } else if (field === 'phone') {
+      setCustomerPhone(value)
+      localStorage.setItem('thecutebox_phone', value)
+    } else if (field === 'address') {
+      setCustomerAddress(value)
+      localStorage.setItem('thecutebox_address', value)
+    } else if (field === 'pincode') {
+      setCustomerPincode(value)
+      localStorage.setItem('thecutebox_pincode', value)
+    } else if (field === 'city') {
+      setCustomerCity(value)
+      localStorage.setItem('thecutebox_city', value)
+    } else if (field === 'giftNote') {
+      setCustomerGiftNote(value)
+      localStorage.setItem('thecutebox_gift_note', value)
+    }
+  }
 
   // Handle coupon apply
   const handleApplyCoupon = (e) => {
@@ -65,14 +103,36 @@ export default function CartDrawer() {
   const handleWhatsAppCheckout = () => {
     if (items.length === 0) return
 
+    // Validate delivery details
+    const errors = {}
+    if (!customerName.trim()) errors.name = 'Please enter your name'
+    if (!customerPhone.trim()) errors.phone = 'Please enter your phone number'
+    if (!customerAddress.trim()) errors.address = 'Please enter delivery address'
+    if (!customerPincode.trim()) errors.pincode = 'Please enter pincode'
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors)
+      deliveryFormRef.current?.scrollIntoView({ behavior: 'smooth' })
+      return
+    }
+
+    setValidationErrors({})
+
     const orderLines = items
       .map((item, idx) => {
         const itemTotal = item.price * item.qty
-        return `${idx + 1}. ${item.name}\n   Price: ₹${item.price.toLocaleString('en-IN')} × ${item.qty} = ₹${itemTotal.toLocaleString('en-IN')}`
+        let details = `${idx + 1}. ${item.name}\n   Price: ₹${item.price.toLocaleString('en-IN')} × ${item.qty} = ₹${itemTotal.toLocaleString('en-IN')}`
+        if (item.customDetails?.wrap) {
+          details += `\n   Wrapping: ${item.customDetails.wrap}`
+        }
+        return details
       })
       .join('\n\n')
 
     const deliveryText = isFreeDelivery ? 'FREE' : `₹${deliveryCharge.toLocaleString('en-IN')}`
+
+    const cityPart = customerCity.trim() ? `, ${customerCity.trim()}` : ''
+    const giftNotePart = customerGiftNote.trim() ? `\nGift Note: ${customerGiftNote.trim()}` : ''
 
     const message = `Hello! I'd like to place an order from The Cutebox.
 
@@ -89,10 +149,10 @@ Payment Summary:
 - Total Amount: ₹${finalAmount.toLocaleString('en-IN')}
 
 📦 Delivery Details:
-Name: 
-Phone: 
-Full Address: 
-Pincode: 
+Name: ${customerName.trim()}
+Phone: ${customerPhone.trim()}
+Full Address: ${customerAddress.trim()}${cityPart}
+Pincode: ${customerPincode.trim()}${giftNotePart}
 
 Please confirm the order and share the next steps. Thank you!`
 
@@ -114,7 +174,7 @@ Please confirm the order and share the next steps. Thank you!`
       {/* Drawer panel */}
       <div className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-md bg-ivory flex flex-col shadow-warm-xl animate-slide-in-right border-l-2 border-saffron-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-saffron-100 bg-white">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-saffron-100 bg-white">
           <div className="flex items-center gap-2.5">
             <span className="text-2xl">🎁</span>
             <div>
@@ -133,8 +193,8 @@ Please confirm the order and share the next steps. Thank you!`
           </button>
         </div>
 
-        {/* Items list */}
-        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3.5">
+        {/* Scrollable Body: Cart Items + Delivery Form */}
+        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full gap-4 text-center py-12">
               <div className="w-20 h-20 rounded-full bg-saffron-50 flex items-center justify-center text-4xl shadow-warm-sm">
@@ -151,74 +211,210 @@ Please confirm the order and share the next steps. Thank you!`
               </button>
             </div>
           ) : (
-            items.map((item) => {
-              const itemImg = item.images?.[0] || item.image
-              return (
-                <div
-                  key={item.id}
-                  className="flex gap-3.5 bg-white rounded-2xl p-3.5 shadow-warm-sm border border-saffron-100/60"
-                >
-                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-ivory-warm flex-shrink-0 flex items-center justify-center">
-                    {itemImg ? (
-                      <img
-                        src={itemImg}
-                        alt={item.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <span className="text-3xl">{item.fallbackEmoji || '🎁'}</span>
+            <>
+              {/* Product cards */}
+              <div className="space-y-3">
+                {items.map((item) => {
+                  const itemImg = item.images?.[0] || item.image
+                  return (
+                    <div
+                      key={item.id}
+                      className="flex gap-3 bg-white rounded-2xl p-3 shadow-warm-sm border border-saffron-100/60"
+                    >
+                      <div className="w-18 h-18 rounded-xl overflow-hidden bg-ivory-warm flex-shrink-0 flex items-center justify-center">
+                        {itemImg ? (
+                          <img
+                            src={itemImg}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <span className="text-3xl">{item.fallbackEmoji || '🎁'}</span>
+                        )}
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <p className="font-display font-semibold text-xs sm:text-sm text-indigo-deep leading-snug line-clamp-2">
+                          {item.name}
+                        </p>
+                        <p className="text-[10px] text-saffron-600 font-semibold mt-0.5 truncate">
+                          {item.artisan}
+                        </p>
+                        <div className="flex items-center justify-between mt-1.5">
+                          <p className="font-display font-bold text-saffron-600 text-sm">
+                            ₹{(item.price * item.qty).toLocaleString('en-IN')}
+                          </p>
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              onClick={() => updateQty(item.id, item.qty - 1)}
+                              className="w-5 h-5 rounded-full bg-saffron-50 text-saffron-600 flex items-center justify-center hover:bg-saffron-100 transition-colors"
+                            >
+                              <Minus size={11} />
+                            </button>
+                            <span className="text-xs font-bold w-4 text-center">{item.qty}</span>
+                            <button
+                              onClick={() => updateQty(item.id, item.qty + 1)}
+                              className="w-5 h-5 rounded-full bg-saffron-50 text-saffron-600 flex items-center justify-center hover:bg-saffron-100 transition-colors"
+                            >
+                              <Plus size={11} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        aria-label="Remove item"
+                        className="p-1 self-start text-earth-pale hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Delivery Details Form */}
+              <div
+                ref={deliveryFormRef}
+                className="bg-white rounded-2xl p-4 shadow-warm-sm border border-saffron-200/90 space-y-3"
+              >
+                <div className="flex items-center justify-between border-b border-saffron-100 pb-2.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-base">📦</span>
+                    <h3 className="font-display font-bold text-sm text-indigo-deep">
+                      Delivery &amp; Recipient Details
+                    </h3>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                    Pre-fills WhatsApp
+                  </span>
+                </div>
+
+                <div className="space-y-2.5">
+                  {/* Name */}
+                  <div>
+                    <label className="text-[11px] font-bold text-indigo-deep flex items-center gap-1 mb-1">
+                      <User size={12} className="text-saffron-600" />
+                      <span>Full Name <strong className="text-red-500">*</strong></span>
+                    </label>
+                    <input
+                      type="text"
+                      value={customerName}
+                      onChange={(e) => updateDeliveryField('name', e.target.value)}
+                      placeholder="e.g. Rahul Sharma"
+                      className={`w-full text-xs bg-ivory/50 border rounded-xl px-3 py-2 text-indigo-deep placeholder:text-earth-light/60 focus:outline-none focus:ring-1 focus:ring-saffron-400 ${
+                        validationErrors.name ? 'border-red-400 bg-red-50/40 ring-1 ring-red-400' : 'border-saffron-200'
+                      }`}
+                    />
+                    {validationErrors.name && (
+                      <p className="text-[10px] text-red-500 mt-1 font-semibold">{validationErrors.name}</p>
                     )}
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <p className="font-display font-semibold text-sm text-indigo-deep leading-snug line-clamp-2">
-                      {item.name}
-                    </p>
-                    <p className="text-[11px] text-saffron-600 font-semibold mt-0.5">
-                      {item.artisan}
-                    </p>
-                    <div className="flex items-center justify-between mt-2">
-                      <p className="font-display font-bold text-saffron-600 text-sm">
-                        ₹{(item.price * item.qty).toLocaleString('en-IN')}
-                      </p>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => updateQty(item.id, item.qty - 1)}
-                          className="w-6 h-6 rounded-full bg-saffron-50 text-saffron-600 flex items-center justify-center hover:bg-saffron-100 transition-colors"
-                        >
-                          <Minus size={12} />
-                        </button>
-                        <span className="text-xs font-bold w-4 text-center">{item.qty}</span>
-                        <button
-                          onClick={() => updateQty(item.id, item.qty + 1)}
-                          className="w-6 h-6 rounded-full bg-saffron-50 text-saffron-600 flex items-center justify-center hover:bg-saffron-100 transition-colors"
-                        >
-                          <Plus size={12} />
-                        </button>
-                      </div>
+                  {/* Phone */}
+                  <div>
+                    <label className="text-[11px] font-bold text-indigo-deep flex items-center gap-1 mb-1">
+                      <Phone size={12} className="text-saffron-600" />
+                      <span>WhatsApp / Phone Number <strong className="text-red-500">*</strong></span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={customerPhone}
+                      onChange={(e) => updateDeliveryField('phone', e.target.value)}
+                      placeholder="e.g. 9831559109"
+                      className={`w-full text-xs bg-ivory/50 border rounded-xl px-3 py-2 text-indigo-deep placeholder:text-earth-light/60 focus:outline-none focus:ring-1 focus:ring-saffron-400 ${
+                        validationErrors.phone ? 'border-red-400 bg-red-50/40 ring-1 ring-red-400' : 'border-saffron-200'
+                      }`}
+                    />
+                    {validationErrors.phone && (
+                      <p className="text-[10px] text-red-500 mt-1 font-semibold">{validationErrors.phone}</p>
+                    )}
+                  </div>
+
+                  {/* Address */}
+                  <div>
+                    <label className="text-[11px] font-bold text-indigo-deep flex items-center gap-1 mb-1">
+                      <Home size={12} className="text-saffron-600" />
+                      <span>Full Address <strong className="text-red-500">*</strong></span>
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={customerAddress}
+                      onChange={(e) => updateDeliveryField('address', e.target.value)}
+                      placeholder="Flat/House No., Street, Landmark, Area"
+                      className={`w-full text-xs bg-ivory/50 border rounded-xl px-3 py-2 text-indigo-deep placeholder:text-earth-light/60 focus:outline-none focus:ring-1 focus:ring-saffron-400 resize-none ${
+                        validationErrors.address ? 'border-red-400 bg-red-50/40 ring-1 ring-red-400' : 'border-saffron-200'
+                      }`}
+                    />
+                    {validationErrors.address && (
+                      <p className="text-[10px] text-red-500 mt-1 font-semibold">{validationErrors.address}</p>
+                    )}
+                  </div>
+
+                  {/* Pincode & City */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="text-[11px] font-bold text-indigo-deep flex items-center gap-1 mb-1">
+                        <MapPin size={12} className="text-saffron-600" />
+                        <span>Pincode <strong className="text-red-500">*</strong></span>
+                      </label>
+                      <input
+                        type="text"
+                        value={customerPincode}
+                        maxLength={6}
+                        onChange={(e) => updateDeliveryField('pincode', e.target.value)}
+                        placeholder="e.g. 700074"
+                        className={`w-full text-xs bg-ivory/50 border rounded-xl px-3 py-2 text-indigo-deep placeholder:text-earth-light/60 focus:outline-none focus:ring-1 focus:ring-saffron-400 font-mono ${
+                          validationErrors.pincode ? 'border-red-400 bg-red-50/40 ring-1 ring-red-400' : 'border-saffron-200'
+                        }`}
+                      />
+                      {validationErrors.pincode && (
+                        <p className="text-[10px] text-red-500 mt-1 font-semibold">{validationErrors.pincode}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="text-[11px] font-bold text-indigo-deep block mb-1">
+                        City / State
+                      </label>
+                      <input
+                        type="text"
+                        value={customerCity}
+                        onChange={(e) => updateDeliveryField('city', e.target.value)}
+                        placeholder="e.g. Kolkata, WB"
+                        className="w-full text-xs bg-ivory/50 border border-saffron-200 rounded-xl px-3 py-2 text-indigo-deep placeholder:text-earth-light/60 focus:outline-none focus:ring-1 focus:ring-saffron-400"
+                      />
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => removeItem(item.id)}
-                    aria-label="Remove item"
-                    className="p-1 self-start text-earth-pale hover:text-red-500 transition-colors"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+                  {/* Gift Note */}
+                  <div>
+                    <label className="text-[11px] font-bold text-indigo-deep flex items-center gap-1 mb-1">
+                      <FileText size={12} className="text-saffron-600" />
+                      <span>Gift Note / Special Blessing (Optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={customerGiftNote}
+                      onChange={(e) => updateDeliveryField('giftNote', e.target.value)}
+                      placeholder="e.g. Happy Birthday Rohit! Lots of love, Ananya"
+                      className="w-full text-xs bg-ivory/50 border border-saffron-200 rounded-xl px-3 py-2 text-indigo-deep placeholder:text-earth-light/60 focus:outline-none focus:ring-1 focus:ring-saffron-400"
+                    />
+                  </div>
                 </div>
-              )
-            })
+              </div>
+            </>
           )}
         </div>
 
-        {/* Footer & Checkout Area */}
+        {/* Sticky Footer: Total & WhatsApp Button */}
         {items.length > 0 && (
-          <div className="border-t border-saffron-100 px-6 py-4 space-y-3 bg-white">
+          <div className="border-t border-saffron-100 px-5 py-3.5 space-y-2.5 bg-white shadow-lg">
             {/* Free shipping progress */}
             {subtotal < FREE_DELIVERY_THRESHOLD ? (
-              <div className="bg-saffron-50 rounded-xl p-2.5 border border-saffron-200/50">
-                <div className="flex items-center justify-between text-xs text-indigo-deep font-semibold mb-1">
+              <div className="bg-saffron-50 rounded-xl p-2 border border-saffron-200/50">
+                <div className="flex items-center justify-between text-[11px] text-indigo-deep font-semibold mb-1">
                   <span>
                     Add{' '}
                     <strong className="text-saffron-600">
@@ -228,7 +424,7 @@ Please confirm the order and share the next steps. Thank you!`
                   </span>
                   <span>{Math.round((subtotal / FREE_DELIVERY_THRESHOLD) * 100)}%</span>
                 </div>
-                <div className="h-1.5 bg-saffron-200/60 rounded-full overflow-hidden">
+                <div className="h-1 bg-saffron-200/60 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-gradient-to-r from-saffron-500 to-rose-gulabi rounded-full transition-all duration-300"
                     style={{ width: `${Math.min((subtotal / FREE_DELIVERY_THRESHOLD) * 100, 100)}%` }}
@@ -236,7 +432,7 @@ Please confirm the order and share the next steps. Thank you!`
                 </div>
               </div>
             ) : (
-              <div className="bg-emerald-50 text-emerald-800 rounded-xl p-2 text-xs font-bold flex items-center gap-1.5 border border-emerald-200">
+              <div className="bg-emerald-50 text-emerald-800 rounded-xl p-1.5 text-[11px] font-bold flex items-center gap-1.5 border border-emerald-200">
                 <span>🎉</span>
                 <span>Congratulations! Free Delivery unlocked!</span>
               </div>
@@ -247,9 +443,9 @@ Please confirm the order and share the next steps. Thank you!`
               {!appliedCoupon && !showCouponInput && (
                 <button
                   onClick={() => setShowCouponInput(true)}
-                  className="text-xs font-semibold text-saffron-700 hover:text-saffron-800 flex items-center gap-1"
+                  className="text-[11px] font-semibold text-saffron-700 hover:text-saffron-800 flex items-center gap-1"
                 >
-                  <Tag size={13} />
+                  <Tag size={12} />
                   <span>Have a promo code? (e.g. FESTIVE10)</span>
                 </button>
               )}
@@ -261,27 +457,27 @@ Please confirm the order and share the next steps. Thank you!`
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value)}
                     placeholder="Enter coupon (FESTIVE10)"
-                    className="flex-1 text-xs border border-saffron-200 rounded-lg px-2.5 py-1.5 uppercase font-mono tracking-wider focus:outline-none focus:ring-1 focus:ring-saffron-400"
+                    className="flex-1 text-xs border border-saffron-200 rounded-lg px-2.5 py-1 uppercase font-mono tracking-wider focus:outline-none focus:ring-1 focus:ring-saffron-400"
                   />
                   <button
                     type="submit"
-                    className="bg-saffron-500 hover:bg-saffron-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors"
+                    className="bg-saffron-500 hover:bg-saffron-600 text-white text-xs font-bold px-3 py-1 rounded-lg transition-colors"
                   >
                     Apply
                   </button>
                 </form>
               )}
 
-              {couponError && <p className="text-[11px] text-red-500 mt-1">{couponError}</p>}
+              {couponError && <p className="text-[10px] text-red-500 mt-0.5">{couponError}</p>}
 
               {appliedCoupon && (
-                <div className="flex items-center justify-between bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1.5 rounded-lg border border-emerald-200">
-                  <span className="font-semibold">
+                <div className="flex items-center justify-between bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-lg border border-emerald-200">
+                  <span className="font-semibold text-[11px]">
                     Code <strong>{appliedCoupon.code}</strong> applied ({appliedCoupon.percent}% off)
                   </span>
                   <button
                     onClick={handleRemoveCoupon}
-                    className="text-red-500 hover:text-red-700 font-bold ml-2"
+                    className="text-red-500 hover:text-red-700 font-bold ml-2 text-xs"
                   >
                     Remove
                   </button>
@@ -290,9 +486,9 @@ Please confirm the order and share the next steps. Thank you!`
             </div>
 
             {/* Pricing Summary Breakdown */}
-            <div className="space-y-1.5 pt-1 text-xs text-indigo-deep/80 border-t border-saffron-50">
+            <div className="space-y-1 text-xs text-indigo-deep/80 border-t border-saffron-50 pt-1.5">
               <div className="flex justify-between">
-                <span>Subtotal</span>
+                <span>Subtotal ({count} items)</span>
                 <span className="font-semibold text-indigo-deep">₹{subtotal.toLocaleString('en-IN')}</span>
               </div>
 
@@ -314,40 +510,33 @@ Please confirm the order and share the next steps. Thank you!`
                 </span>
               </div>
 
-              <div className="flex justify-between items-center pt-2 border-t border-saffron-100">
+              <div className="flex justify-between items-center pt-1.5 border-t border-saffron-100">
                 <div>
-                  <span className="font-display font-bold text-base text-indigo-deep block">
+                  <span className="font-display font-bold text-sm sm:text-base text-indigo-deep block leading-tight">
                     Total Amount
                   </span>
                   <span className="text-[10px] text-earth-light">Taxes &amp; packaging included</span>
                 </div>
-                <span className="font-display font-bold text-xl text-saffron-600">
+                <span className="font-display font-bold text-lg sm:text-xl text-saffron-600">
                   ₹{finalAmount.toLocaleString('en-IN')}
                 </span>
               </div>
             </div>
 
             {/* WhatsApp Checkout Button */}
-            <div className="pt-1">
+            <div className="pt-0.5">
               <button
                 onClick={handleWhatsAppCheckout}
                 disabled={items.length === 0}
-                className="w-full justify-center text-sm sm:text-base py-3.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white flex items-center gap-2 rounded-full font-bold shadow-emerald transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                className="w-full justify-center text-sm sm:text-base py-3 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white flex items-center gap-2 rounded-full font-bold shadow-emerald transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 <WhatsAppIcon className="w-5 h-5 fill-white" />
                 <span>Order via WhatsApp</span>
               </button>
-              <p className="text-center text-[11px] text-earth-light mt-1.5">
-                Your order summary will be shared with us on WhatsApp.
+              <p className="text-center text-[10px] text-earth-light mt-1">
+                Your delivery address &amp; order summary will be pre-filled on WhatsApp.
               </p>
             </div>
-
-            <button
-              onClick={closeCart}
-              className="btn-secondary w-full justify-center text-xs py-2"
-            >
-              Add More Artisan Treasures
-            </button>
           </div>
         )}
       </div>
