@@ -47,10 +47,10 @@ export const artisans = [
   {
     id: 'a0',
     name: 'Preety Singh',
-    craft: 'Founder & Master Curation Director',
-    location: 'Kolkata Studio, West Bengal',
+    craft: 'Founder & Curation Director',
+    location: 'Nagerbazar, Jessore Road, Kolkata - 700074',
     contact: '+91 9831559109',
-    story: 'Born from a deep love for Bengal’s artistic soul and India’s multifaceted festival calendar. Preety works directly with traditional craftspeople across Kolkata, Shantiniketan, Jaipur, and Kashmir to curate memorable celebration boxes.',
+    story: 'Based in Nagerbazar, Kolkata, Preety curates authentic festival gift boxes celebrating India’s living craft traditions for Eid, Christmas, Durga Puja, and Diwali.',
     avatar: `${BASE}images/artisan-rajasthan.jpg`,
     productCount: 'All 8 Curations'
   },

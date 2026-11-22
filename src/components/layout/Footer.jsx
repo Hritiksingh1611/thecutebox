@@ -95,8 +95,8 @@ export default function Footer() {
                 ['Build Your Custom Box (3 Steps)', '/build'],
                 ['Royal Pre-curated Hampers', '/hampers'],
                 ['Corporate & Bulk Orders', '/corporate'],
-                ['Preety Singh’s Artisan Guild', '/artisans'],
-                ['Kolkata Studio Custom Inquiries', '#contact'],
+                ['Artisans & Guilds', '/artisans'],
+                ['Custom Inquiries (Nagerbazar)', '#contact'],
               ].map(([label, to]) => (
                 <li key={label}>
                   <Link to={to} className="hover:text-marigold-300 transition-colors flex items-center gap-1.5">
@@ -108,17 +108,17 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Studio & Founder Contact */}
+          {/* Contact */}
           <div id="contact">
             <h3 className="font-display font-semibold text-ivory text-base mb-4 flex items-center gap-2">
-              <span className="text-rose-light">📍</span> Kolkata Studio
+              <span className="text-rose-light">📍</span> Kolkata Address
             </h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2.5">
                 <MapPin size={16} className="mt-1 text-saffron-400 shrink-0" />
                 <span>
-                  <strong>Kolkata Flagship Studio:</strong><br />
-                  Park Street / Salt Lake Sector 1, Kolkata, West Bengal 700064
+                  <strong>Address:</strong><br />
+                  Nagerbazar, Jessore Road, Kolkata, West Bengal - 700074
                 </span>
               </li>
               <li className="flex items-start gap-2.5">
@@ -133,7 +133,7 @@ export default function Footer() {
               <li className="flex items-start gap-2.5">
                 <MessageCircle size={16} className="mt-1 text-emerald-400 shrink-0" />
                 <span>
-                  <strong>WhatsApp Orders:</strong>{' '}
+                  <strong>WhatsApp:</strong>{' '}
                   <a
                     href="https://wa.me/919831559109"
                     target="_blank"
@@ -154,7 +154,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ivory/50">
-          <p>© 2024 thecutebox.in • Handcrafted with <Heart size={12} className="inline text-rose-gulabi fill-rose-gulabi mx-0.5" /> in Kolkata by Preety Singh.</p>
+          <p>© 2024 thecutebox.in • Handcrafted with <Heart size={12} className="inline text-rose-gulabi fill-rose-gulabi mx-0.5" /> by Preety Singh (Nagerbazar, Kolkata - 700074).</p>
           <div className="flex gap-4">
             <span className="hover:text-ivory transition-colors">Pan-India Express Dispatch</span>
             <span>•</span>

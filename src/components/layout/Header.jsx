@@ -42,7 +42,7 @@ export default function Header() {
       <div className="bg-gradient-to-r from-crimson-600 via-saffron-500 to-emeraldFestive-700 text-white py-2 px-3 text-center text-xs font-semibold tracking-wider flex items-center justify-center gap-2 sm:gap-4 shadow-sm">
         <span className="hidden sm:inline">🪔 🌙 🎄 🌺</span>
         <span>
-          <strong>All Indian Festivals Gifting:</strong> Hand-packed in Kolkata by <strong>Preety Singh</strong> • Free Express Delivery above ₹1,999
+          <strong>All Indian Festivals Gifting:</strong> Hand-packed by <strong>Preety Singh</strong> (Nagerbazar, Kolkata - 700074) • Free Express Delivery above ₹1,999
         </span>
         <a
           href="tel:9831559109"
@@ -70,7 +70,7 @@ export default function Header() {
                 thecutebox<span className="text-saffron-600 font-sans font-normal text-xs">.in</span>
               </span>
               <span className="text-[10px] tracking-widest text-saffron-700 uppercase font-bold flex items-center gap-1">
-                <span>Kolkata Studio</span>
+                <span>Nagerbazar, Kolkata - 700074</span>
                 <span className="text-earth-pale">•</span>
                 <span className="text-earth-light">By Preety Singh</span>
               </span>
@@ -187,8 +187,8 @@ export default function Header() {
           <nav className="container-site py-5 flex flex-col gap-2">
             <div className="p-3 bg-saffron-50 rounded-2xl flex items-center justify-between mb-2">
               <div>
-                <p className="font-bold text-xs text-indigo-deep">Preety Singh (Founder)</p>
-                <p className="text-[11px] text-earth-light">Kolkata Studio: 9831559109</p>
+                <p className="font-bold text-xs text-indigo-deep">Preety Singh</p>
+                <p className="text-[11px] text-earth-light">Nagerbazar, Jessore Road, Kolkata - 700074 • 9831559109</p>
               </div>
               <a
                 href="https://wa.me/919831559109"

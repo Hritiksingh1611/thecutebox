@@ -86,7 +86,7 @@ export default function BuildYourBoxPage() {
         <div className="text-center mb-10 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 text-saffron-700 text-xs font-bold tracking-widest uppercase mb-3 bg-saffron-100 px-4 py-1.5 rounded-full">
             <Sparkles size={14} />
-            <span>Kolkata Studio • Curated by Preety Singh (+91 9831559109)</span>
+            <span>Nagerbazar, Jessore Road, Kolkata - 700074 • Preety Singh: 9831559109</span>
           </div>
           <h1 className="font-display text-4xl sm:text-5xl font-bold text-indigo-deep mb-3">
             Build Your Own Festival Box

@@ -46,7 +46,7 @@ export default function CatalogPage() {
         {/* Header with Kolkata Studio Tag */}
         <div className="mb-10 text-center max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-saffron-100 text-saffron-800 text-xs font-bold px-4 py-1.5 rounded-full mb-3">
-            <span>Kolkata Studio</span>
+            <span>Nagerbazar, Jessore Road, Kolkata - 700074</span>
             <span>•</span>
             <span>Preety Singh: 9831559109</span>
           </div>

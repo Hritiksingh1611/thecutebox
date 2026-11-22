@@ -1,5 +1,5 @@
 // 🇮🇳 thecutebox.in — Pan-Indian Multi-Festival Gifting Catalog
-// Founded & Handcrafted by Preety Singh • Kolkata Studio (+91 9831559109)
+// Founded & Handcrafted by Preety Singh (Nagerbazar, Jessore Road, Kolkata - 700074 • +91 9831559109)
 const BASE = import.meta.env.BASE_URL || '/thecutebox/'
 
 export const products = [
@@ -15,7 +15,7 @@ export const products = [
     originalPrice: 1699,
     rating: 4.9,
     reviewCount: 312,
-    artisan: 'Preety Singh Curation • Jaipur & Kolkata Studios',
+    artisan: 'Curated by Preety Singh (Nagerbazar, Kolkata - 700074)',
     shortDescription: '8 hand-painted terracotta diyas with organic Gulal & brass bell.',
     description: 'Celebrate the divine festival of lights. Handcrafted on traditional potter wheels, each terracotta diya is hand-painted in vibrant saffron, deep blue, and shimmering gold. Includes pure cow-ghee wicks and organic floral rangoli colors.',
     contents: [
@@ -76,9 +76,9 @@ export const products = [
     originalPrice: 2699,
     rating: 4.9,
     reviewCount: 167,
-    artisan: 'Park Street Kolkata Heritage Kitchen & Studio',
-    shortDescription: 'Old-Kolkata rum-soaked fruit plum cake, spiced cinnamon cocoa & pine candle.',
-    description: 'Inspired by Kolkata’s legendary Park Street Christmas heritage. Features a traditional dark spiced plum cake aged with macerated dry fruits, artisanal Madagascar spiced hot cocoa blend, hand-poured pine & cinnamon soy candle, and candy canes.',
+    artisan: 'Classic Kolkata Festive Recipe • Curated by Preety Singh',
+    shortDescription: 'Old-Kolkata rum-infused spiced fruit plum cake, cinnamon cocoa & pine candle.',
+    description: 'Inspired by Kolkata’s timeless festive winter heritage. Features a traditional dark spiced plum cake aged with macerated dry fruits, artisanal Madagascar spiced hot cocoa blend, hand-poured pine & cinnamon soy candle, and festive candy canes.',
     contents: [
       'Heritage Rich Spiced Plum Cake (400g Tin)',
       'Belgian Dark Chocolate & Cinnamon Cocoa Blend (150g)',

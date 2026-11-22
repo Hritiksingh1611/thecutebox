@@ -119,7 +119,7 @@ function HeroSection() {
               <Sparkles size={14} className="text-saffron-500 animate-spin-slow" />
               <span>{current.badge}</span>
               <span className="text-earth-pale">•</span>
-              <span className="text-earth-light">Kolkata Studio</span>
+              <span className="text-earth-light">Nagerbazar, Kolkata - 700074</span>
             </div>
 
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-indigo-deep leading-[1.12] mb-6">
@@ -150,8 +150,8 @@ function HeroSection() {
                   PS
                 </div>
                 <div>
-                  <p className="font-bold text-xs text-indigo-deep">Curated by Preety Singh (Founder)</p>
-                  <p className="text-[11px] text-earth-light">Park Street / Salt Lake, Kolkata Studio</p>
+                  <p className="font-bold text-xs text-indigo-deep">Curated by Preety Singh</p>
+                  <p className="text-[11px] text-earth-light">Nagerbazar, Jessore Road, Kolkata - 700074</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -210,19 +210,19 @@ function HeroSection() {
                     {current.badge}
                   </span>
                   <p className="font-display font-bold text-xl md:text-2xl leading-tight text-white drop-shadow">
-                    Hand-packed with love in Kolkata by Preety Singh
+                    Hand-packed by Preety Singh (Nagerbazar, Kolkata - 700074)
                   </p>
                 </div>
               </div>
 
-              {/* Floating Pill: Kolkata Studio Phone */}
+              {/* Floating Pill: Kolkata Address Phone */}
               <div className="absolute -left-6 top-1/4 bg-white/95 backdrop-blur-md rounded-2xl shadow-warm-lg p-3 flex items-center gap-3 border border-saffron-100 hidden sm:flex">
                 <div className="w-11 h-11 rounded-xl bg-saffron-100 flex items-center justify-center text-xl flex-shrink-0">
                   🎁
                 </div>
                 <div>
-                  <p className="font-display font-bold text-xs text-indigo-deep">All Festivals Curation</p>
-                  <p className="text-saffron-600 font-bold text-xs">Call: 9831559109</p>
+                  <p className="font-display font-bold text-xs text-indigo-deep">Preety Singh</p>
+                  <p className="text-saffron-600 font-bold text-xs">Ph: 9831559109</p>
                 </div>
               </div>
 
@@ -557,7 +557,7 @@ function BuildYourBoxCTA() {
             <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/70 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 text-white">
               <span className="text-xs uppercase font-bold tracking-wider text-marigold-300 block mb-1">
-                Kolkata Studio Signature
+                Nagerbazar, Kolkata - 700074
               </span>
               <p className="font-display font-bold text-lg text-white">
                 Hand-tied with Banarasi silk ribbon &amp; handwritten blessing

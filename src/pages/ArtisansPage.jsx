@@ -11,7 +11,7 @@ export default function ArtisansPage() {
       <section className="bg-gradient-to-br from-ivory via-ivory-warm to-marigold-50 py-16 md:py-24 mb-14 border-b border-saffron-100">
         <div className="container-site text-center max-w-3xl mx-auto">
           <span className="tag bg-saffron-100 text-saffron-700 mb-4">
-            Kolkata Studio &amp; Artisan Guilds
+            Nagerbazar, Jessore Road, Kolkata - 700074 • Preety Singh
           </span>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-indigo-deep mb-4">
             Curated by Preety Singh

@@ -57,7 +57,7 @@ export default function CorporatePage() {
         <div className="container-site text-center max-w-3xl mx-auto">
           <Building2 size={44} className="mx-auto text-saffron-400 mb-4" />
           <span className="tag bg-saffron-500/20 text-saffron-300 border border-saffron-400/40 mb-4">
-            Pan-India Corporate &amp; Festive Gifting • Kolkata Studio
+            Nagerbazar, Jessore Road, Kolkata - 700074 • Preety Singh (+91 9831559109)
           </span>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-ivory">
             Corporate Gifting with Soul
