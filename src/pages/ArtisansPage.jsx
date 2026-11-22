@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { artisans } from '../data/testimonials'
 import { products } from '../data/products'
 import ProductCard from '../components/product/ProductCard'
-import { Sparkles, Heart } from 'lucide-react'
+import { Sparkles, Phone, MessageCircle, Heart, MapPin } from 'lucide-react'
 
 export default function ArtisansPage() {
   return (
@@ -11,14 +11,30 @@ export default function ArtisansPage() {
       <section className="bg-gradient-to-br from-ivory via-ivory-warm to-marigold-50 py-16 md:py-24 mb-14 border-b border-saffron-100">
         <div className="container-site text-center max-w-3xl mx-auto">
           <span className="tag bg-saffron-100 text-saffron-700 mb-4">
-            🤝 50+ Generational Craft Families
+            Kolkata Studio &amp; Artisan Guilds
           </span>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-indigo-deep mb-4">
-            Artisans of India &amp; Studio
+            Curated by Preety Singh
           </h1>
-          <p className="text-indigo-deep/75 text-base sm:text-lg leading-relaxed">
-            We partner directly with master craftspersons in Rajasthan, Kashmir, Uttar Pradesh, and Karnataka — eliminating middlemen so every rupee brings dignity, pride, and generational craft preservation.
+          <p className="text-indigo-deep/75 text-base sm:text-lg leading-relaxed mb-6">
+            Connecting Bengal’s living Kantha craft, Rajasthan’s terracotta pottery, Kannauj’s natural ittar, and Kashmir’s saffron orchids directly to your celebrations.
           </p>
+
+          <div className="inline-flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-warm-sm border border-saffron-100 text-xs sm:text-sm font-bold text-indigo-deep">
+            <span>Direct Studio Helpline:</span>
+            <a href="tel:9831559109" className="text-saffron-600 underline">
+              +91 9831559109
+            </a>
+            <span>•</span>
+            <a
+              href="https://wa.me/919831559109"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-700 flex items-center gap-1"
+            >
+              <MessageCircle size={14} /> WhatsApp
+            </a>
+          </div>
         </div>
       </section>
 
@@ -45,7 +61,7 @@ export default function ArtisansPage() {
                   <h2 className="font-display font-bold text-2xl text-indigo-deep mb-1">
                     {a.name}
                   </h2>
-                  <p className="text-xs text-saffron-600 font-semibold mb-4">
+                  <p className="text-xs text-saffron-600 font-semibold mb-3">
                     📍 {a.location}
                   </p>
                   <p className="text-sm text-indigo-deep/75 leading-relaxed">
@@ -53,10 +69,9 @@ export default function ArtisansPage() {
                   </p>
                 </div>
               </div>
-              <div className="px-6 pb-6 pt-2">
-                <span className="text-xs font-bold text-saffron-700 bg-saffron-50 px-3 py-1.5 rounded-full inline-block">
-                  {a.productCount} creations featured on thecutebox
-                </span>
+              <div className="px-6 pb-6 pt-2 border-t border-saffron-50 flex items-center justify-between text-xs font-bold text-earth-light">
+                <span>Contact: {a.contact}</span>
+                <span className="text-saffron-600">{a.productCount}</span>
               </div>
             </div>
           ))}
@@ -66,9 +81,9 @@ export default function ArtisansPage() {
         <div className="mb-20">
           <div className="flex justify-between items-end mb-8">
             <div>
-              <span className="tag bg-saffron-100 text-saffron-700 mb-2">Handmade Treasures</span>
+              <span className="tag bg-saffron-100 text-saffron-700 mb-2">Living Traditions</span>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-indigo-deep">
-                Creations Directly From the Guilds
+                Handcrafted for All Celebrations
               </h2>
             </div>
             <Link to="/catalog" className="btn-secondary hidden sm:flex">
@@ -77,12 +92,9 @@ export default function ArtisansPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products
-              .filter((p) => p.tags.includes('handcrafted') || p.tags.includes('handmade') || p.tags.includes('heirloom'))
-              .slice(0, 4)
-              .map((p, i) => (
-                <ProductCard key={p.id} product={p} index={i} />
-              ))}
+            {products.slice(0, 4).map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
           </div>
         </div>
 
@@ -90,17 +102,27 @@ export default function ArtisansPage() {
         <div className="bg-gradient-to-br from-saffron-500 to-rose-gulabi text-white rounded-3xl sm:rounded-[2.5rem] p-8 md:p-14 text-center shadow-warm-xl">
           <Sparkles size={40} className="mx-auto text-marigold-300 mb-4" />
           <h2 className="font-display text-3xl sm:text-4xl font-bold mb-3 text-ivory">
-            Are You an Indian Artisan or Craft Cooperative?
+            Want to Collaborate with Preety Singh?
           </h2>
           <p className="text-ivory/80 max-w-xl mx-auto text-sm sm:text-base mb-8">
-            We are always seeking to partner with authentic craftspersons across terracotta, brass, handloom textiles, and natural fragrances. We guarantee fair trade pricing, prompt payouts, and national visibility.
+            Whether you are a craftsperson in Bengal or an artisan guild across India, we invite you to join thecutebox family. Fair prices, national reach, and deep cultural reverence.
           </p>
-          <a
-            href="mailto:namaste@thecutebox.in"
-            className="bg-white text-saffron-700 font-bold px-8 py-3.5 rounded-full inline-flex items-center gap-2 shadow-md hover:bg-ivory transition-colors"
-          >
-            Join the Artisan Guild →
-          </a>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <a
+              href="tel:9831559109"
+              className="bg-white text-saffron-700 font-bold px-7 py-3 rounded-full inline-flex items-center gap-2 shadow-md hover:bg-ivory transition-colors text-sm"
+            >
+              <Phone size={16} /> Call Preety: 9831559109
+            </a>
+            <a
+              href="https://wa.me/919831559109"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3 rounded-full inline-flex items-center gap-2 shadow-md transition-colors text-sm"
+            >
+              <MessageCircle size={16} /> WhatsApp Studio
+            </a>
+          </div>
         </div>
       </div>
     </main>

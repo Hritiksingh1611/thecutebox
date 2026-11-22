@@ -1,20 +1,23 @@
-// 🇮🇳 thecutebox.in — Indian Boutique Gifting Catalog
+// 🇮🇳 thecutebox.in — Pan-Indian Multi-Festival Gifting Catalog
+// Founded & Handcrafted by Preety Singh • Kolkata Studio (+91 9831559109)
 const BASE = import.meta.env.BASE_URL || '/thecutebox/'
 
 export const products = [
+  // 🪔 DIWALI & DHANTERAS
   {
     id: 'p1',
     name: 'Diwali Diya & Rangoli Celebration Set',
     slug: 'diwali-diya-celebration-set',
-    category: 'festive',
-    tags: ['bestseller', 'festive', 'handcrafted'],
+    category: 'diwali',
+    festival: 'Diwali & Dhanteras',
+    tags: ['bestseller', 'diwali', 'handcrafted'],
     price: 1299,
     originalPrice: 1699,
     rating: 4.9,
     reviewCount: 312,
-    artisan: 'Ramesh Kumawat • Jaipur, Rajasthan',
+    artisan: 'Preety Singh Curation • Jaipur & Kolkata Studios',
     shortDescription: '8 hand-painted terracotta diyas with organic Gulal & brass bell.',
-    description: 'Bring the divine glow of festival lights to any home. Handcrafted on traditional potter wheels in Jaipur, each terracotta diya is hand-painted in vibrant saffron, deep blue, and shimmering gold. Includes pure cow-ghee wicks and organic floral rangoli colors.',
+    description: 'Celebrate the divine festival of lights. Handcrafted on traditional potter wheels, each terracotta diya is hand-painted in vibrant saffron, deep blue, and shimmering gold. Includes pure cow-ghee wicks and organic floral rangoli colors.',
     contents: [
       '8 Hand-painted Terracotta Diyas',
       'Organic Floral Rangoli Pack (3 Colors)',
@@ -28,21 +31,144 @@ export const products = [
     color: '#FF6B1A',
     fallbackEmoji: '🪔',
     inStock: true,
-    occasions: ['diwali', 'navratri', 'housewarming', 'pooja']
+    occasions: ['diwali', 'pooja', 'housewarming']
   },
+
+  // 🌙 EID MUBARAK & BAKRID
   {
     id: 'p2',
+    name: 'Noor-e-Eid Royal Ittar & Medjool Hamper',
+    slug: 'noor-e-eid-royal-hamper',
+    category: 'eid',
+    festival: 'Eid Mubarak',
+    tags: ['bestseller', 'eid', 'luxury'],
+    price: 2499,
+    originalPrice: 2999,
+    rating: 5.0,
+    reviewCount: 184,
+    artisan: 'Curated by Preety Singh • Kolkata & Lucknow',
+    shortDescription: 'Jumbo Medjool dates, pure Kannauj Oud ittar, brass crescent tray & sheer khurma.',
+    description: 'A regal celebration for Eid-ul-Fitr and Eid-ul-Adha. Hand-selected jumbo Medjool dates stuffed with roasted almonds, pure alcohol-free Kannauj Oud and Gulab ittar, traditional vermicelli sheer khurma kit, and an engraved brass crescent-star trinket tray.',
+    contents: [
+      'Royal Medjool Stuffed Dates (250g Box)',
+      'Pure Kannauj Rose & White Oudh Ittar (12ml Glass Vial)',
+      'Artisanal Sheer Khurma Dry-Blend Kit with Saffron & Pistachio',
+      'Engraved Brass Crescent & Star Keepsake Dish',
+      'Gold-foil Eid Mubarak Greeting Card by Preety Singh'
+    ],
+    images: [`${BASE}images/product-hamper-grand.jpg`],
+    image: `${BASE}images/product-hamper-grand.jpg`,
+    color: '#047857',
+    fallbackEmoji: '🌙',
+    inStock: true,
+    occasions: ['eid', 'wedding', 'thank-you']
+  },
+
+  // 🎄 CHRISTMAS & NEW YEAR
+  {
+    id: 'p3',
+    name: 'Joyous Winter Plum Cake & Hot Cocoa Box',
+    slug: 'joyous-winter-christmas-hamper',
+    category: 'christmas',
+    festival: 'Christmas & New Year',
+    tags: ['christmas', 'bestseller', 'seasonal'],
+    price: 2199,
+    originalPrice: 2699,
+    rating: 4.9,
+    reviewCount: 167,
+    artisan: 'Park Street Kolkata Heritage Kitchen & Studio',
+    shortDescription: 'Old-Kolkata rum-soaked fruit plum cake, spiced cinnamon cocoa & pine candle.',
+    description: 'Inspired by Kolkata’s legendary Park Street Christmas heritage. Features a traditional dark spiced plum cake aged with macerated dry fruits, artisanal Madagascar spiced hot cocoa blend, hand-poured pine & cinnamon soy candle, and candy canes.',
+    contents: [
+      'Heritage Rich Spiced Plum Cake (400g Tin)',
+      'Belgian Dark Chocolate & Cinnamon Cocoa Blend (150g)',
+      'Winter Pine & Warm Vanilla Soy Wax Candle',
+      'Handmade Ceramic Holiday Mug with Knit Sleeve',
+      'Calligraphed Christmas & New Year Wishes Note'
+    ],
+    images: [`${BASE}images/hero-gift.jpg`],
+    image: `${BASE}images/hero-gift.jpg`,
+    color: '#be123c',
+    fallbackEmoji: '🎄',
+    inStock: true,
+    occasions: ['christmas', 'new-year', 'birthday']
+  },
+
+  // 🌺 DURGA PUJA & NAVRATRI (Kolkata Special)
+  {
+    id: 'p4',
+    name: 'Sharod Utsav Kantha & Darjeeling Tea Treasure',
+    slug: 'sharod-utsav-durga-puja-box',
+    category: 'durgapuja',
+    festival: 'Durga Puja & Navratri',
+    tags: ['durga-puja', 'kolkata-special', 'handcrafted'],
+    price: 1899,
+    originalPrice: 2299,
+    rating: 4.9,
+    reviewCount: 142,
+    artisan: 'Preety Singh • Shantiniketan & Kolkata Guild',
+    shortDescription: 'Shantiniketan Kantha stitch clutch, First-Flush Darjeeling tea & brass Dhunuchi.',
+    description: 'The spirit of Pujo from the heart of Kolkata. Hand-embroidered Kantha silk pouch by Shantiniketan rural women, aromatic First-Flush Makaibari Darjeeling tea leaves, a miniature brass Dhunuchi, and Nolen Gur flavoured sweets.',
+    contents: [
+      'Hand-embroidered Kantha Silk Zip Clutch',
+      'First-Flush Organic Darjeeling Whole-Leaf Tea (100g Tin)',
+      'Miniature Handcrafted Brass Dhunuchi (Incense Burner)',
+      'Organic Bengal Nolen Gur Sandesh Pouch',
+      'Subho Bijoya & Festive Greeting Card'
+    ],
+    images: [`${BASE}images/product-block-print.jpg`],
+    image: `${BASE}images/product-block-print.jpg`,
+    color: '#e11d48',
+    fallbackEmoji: '🌺',
+    inStock: true,
+    occasions: ['durga-puja', 'navratri', 'pooja']
+  },
+
+  // 🎨 HOLI CELEBRATION
+  {
+    id: 'p5',
+    name: 'Rang Barse Organic Herbal Gulal & Thandai Hamper',
+    slug: 'rang-barse-holi-hamper',
+    category: 'holi',
+    festival: 'Holi Celebrations',
+    tags: ['holi', 'seasonal', 'herbal'],
+    price: 1499,
+    originalPrice: 1899,
+    rating: 4.8,
+    reviewCount: 96,
+    artisan: 'Botanica & Preety Singh Studio',
+    shortDescription: '4 floral herbal gulal tins, Shahi Thandai syrup & organic Chandan.',
+    description: 'Safe, joyful, and skin-loving Holi gifting. 4 tins of 100% natural herbal gulal made from dried marigolds, beetroot, and turmeric; paired with rich Kesar Thandai instant blend and pure Mysore sandalwood paste.',
+    contents: [
+      '4 Herbal Floral Gulal Tins (Marigold, Rose, Indigo, Turmeric)',
+      'Shahi Kesar & Pistachio Thandai Mix (150g)',
+      'Pure Sandalwood Tilak Paste with Brass Applicator',
+      'Traditional Mawa Gujiya Sweet Box (4 pcs)',
+      'Waterproof Festive Greetings Envelope'
+    ],
+    images: [`${BASE}images/product-haldi-box.jpg`],
+    image: `${BASE}images/product-haldi-box.jpg`,
+    color: '#E91E8C',
+    fallbackEmoji: '🎨',
+    inStock: true,
+    occasions: ['holi', 'just-because']
+  },
+
+  // ☕ CHAI & GOURMET (PAN-INDIA)
+  {
+    id: 'p6',
     name: 'Royal Masala Chai & Brass Kulhad Kit',
     slug: 'royal-masala-chai-kit',
     category: 'gourmet',
-    tags: ['bestseller', 'popular'],
+    festival: 'All Celebrations',
+    tags: ['bestseller', 'popular', 'cozy'],
     price: 1099,
     originalPrice: 1399,
     rating: 4.8,
     reviewCount: 198,
-    artisan: 'Rajan Spice Estate • Old Jaipur',
+    artisan: 'Rajan Spice Estate & Preety Singh',
     shortDescription: 'Hammered pure brass kulhad, 3 artisanal chai blends & brass strainer.',
-    description: 'An ode to the timeless Indian afternoon chai ritual. Features 3 distinct, whole-spice micro-batch blends (Royal Cardamom-Rose, Kashmiri Kahwa with Kesar, and Kadak Masala) paired with a heavy-gauge handcrafted brass kulhad and traditional tea strainer.',
+    description: 'An ode to the timeless Indian afternoon chai ritual. Features 3 distinct, whole-spice micro-batch blends paired with a heavy-gauge handcrafted brass kulhad and traditional tea strainer.',
     contents: [
       'Royal Rose & Green Cardamom Chai (60g)',
       'Saffron Infused Kashmiri Kahwa (60g)',
@@ -58,77 +184,22 @@ export const products = [
     inStock: true,
     occasions: ['birthday', 'thank-you', 'housewarming', 'just-because']
   },
+
+  // 🪆 HEIRLOOM POOJA & GRIHA PRAVESH
   {
-    id: 'p3',
-    name: 'Maha Utsav Grand Heritage Hamper',
-    slug: 'maha-utsav-heritage-hamper',
-    category: 'hampers',
-    tags: ['bestseller', 'premium', 'luxury'],
-    price: 3999,
-    originalPrice: 4999,
-    rating: 5.0,
-    reviewCount: 247,
-    artisan: 'The Cutebox Master Studio • Bangalore & Jaipur',
-    shortDescription: 'The pinnacle of Indian gifting — 10 curated heirlooms & gourmet delights.',
-    description: 'Our flagship curation designed for weddings, milestone anniversaries, and grand Diwali celebrations. Presented in an ornate velvet-lined wooden trunk with brass latches, containing an authentic brass Ganesha idol, hand-poured soy candles, Kashmiri dry fruits, and heritage sweets.',
-    contents: [
-      'Pure Brass Miniature Ganesha Idol',
-      'Hand-carved Rosewood Keepsake Trunk',
-      'Hand-painted Floral Diya Duo',
-      'Kashmiri Mamra Almonds & Walnuts (250g)',
-      'Organic Damask Rose Gulkand Jar (150g)',
-      'Mysore Sandalwood & Mogra Fragrance Sticks',
-      'Handmade Block-print Silk Potli Pouch',
-      'Artisan Saffron Threads (1g Glass Vial)',
-      'Gold-foil Calligraphy Parchment Note'
-    ],
-    images: [`${BASE}images/product-hamper-grand.jpg`],
-    image: `${BASE}images/product-hamper-grand.jpg`,
-    color: '#E91E8C',
-    fallbackEmoji: '🎁',
-    inStock: true,
-    occasions: ['wedding', 'diwali', 'anniversary', 'birthday']
-  },
-  {
-    id: 'p4',
-    name: 'Bagru Hand-Block Print Fabric & Desk Set',
-    slug: 'bagru-block-print-desk-set',
-    category: 'artisan',
-    tags: ['handmade', 'sustainable', 'unique'],
-    price: 1699,
-    originalPrice: 1999,
-    rating: 4.7,
-    reviewCount: 89,
-    artisan: 'Sunita Devi • Bagru Crafts Collective',
-    shortDescription: 'Natural indigo block-print journal, pouch, brass bookmark & incense.',
-    description: 'Preserving a 400-year-old heritage craft from Rajasthan. Sunita stamps hand-carved teak wood blocks using vegetable indigo and mud-resist Dabu techniques. Accompanied by cotton rag paper notebooks and a delicate engraved brass peacock bookmark.',
-    contents: [
-      'Hand-bound Cotton Rag Paper Diary (160 pages)',
-      'Natural Indigo Dabu Pouch with Brass Zipper',
-      'Engraved Brass Peacock Bookmark',
-      'Organic Sandalwood Herbal Bath Bar',
-      'Set of 4 Plantable Seed-Paper Gift Tags'
-    ],
-    images: [`${BASE}images/product-block-print.jpg`],
-    image: `${BASE}images/product-block-print.jpg`,
-    color: '#00897B',
-    fallbackEmoji: '🎨',
-    inStock: true,
-    occasions: ['birthday', 'thank-you', 'self-care', 'anniversary']
-  },
-  {
-    id: 'p5',
+    id: 'p7',
     name: 'Moradabad Royal Brass Pooja Thali Set',
     slug: 'moradabad-brass-pooja-thali',
-    category: 'wellness',
+    category: 'pooja',
+    festival: 'Pooja & Griha Pravesh',
     tags: ['premium', 'heirloom'],
     price: 2499,
     originalPrice: 2999,
     rating: 4.9,
     reviewCount: 134,
-    artisan: 'Moradabad Metal Guild • Uttar Pradesh',
+    artisan: 'Moradabad Metal Guild & Preety Singh',
     shortDescription: '10" intricately engraved brass thali with 5 sacred pooja accompaniments.',
-    description: 'Fashioned by master brass smiths of Moradabad, India’s famed "Peetal Nagri". Every swirl and floral border on this 10-inch plate is carved by hand. Ideal for Griha Pravesh (housewarmings), weddings, and festive prayer sanctums.',
+    description: 'Fashioned by master brass smiths of Moradabad. Every swirl and floral border on this 10-inch plate is carved by hand. Ideal for Griha Pravesh, Diwali, Durga Puja, and sacred temple altars.',
     contents: [
       '10" Hand-engraved Pure Brass Thali Plate',
       'Twin Brass Akhand Diya Lamps',
@@ -144,19 +215,22 @@ export const products = [
     inStock: true,
     occasions: ['housewarming', 'wedding', 'navratri', 'diwali', 'pooja']
   },
+
+  // 🌸 AYURVEDA WELLNESS & SELF CARE
   {
-    id: 'p6',
+    id: 'p8',
     name: 'Kashmiri Saffron & Turmeric Wellness Box',
     slug: 'kashmiri-saffron-turmeric-wellness-box',
     category: 'wellness',
-    tags: ['ayurvedic', 'self-care', 'new'],
+    festival: 'Self-Care & Wedding',
+    tags: ['ayurvedic', 'self-care', 'luxury'],
     price: 1799,
     originalPrice: 2199,
     rating: 4.8,
     reviewCount: 76,
-    artisan: 'Botanica Ayurveda • Kannauj & Pune',
+    artisan: 'Botanica Ayurveda • Curated by Preety Singh',
     shortDescription: 'Pure Kasturi Haldi soap, steam-distilled rose water & Kumkumadi serum.',
-    description: 'An ancient Vedic beauty and wellness ritual packaged for the modern soul. Features wild Kasturi turmeric cold-process soap, pure steam-distilled Kannauj Gulab Jal (rose mist), and authentic Kumkumadi Tailam enriched with authentic Kashmiri saffron.',
+    description: 'An ancient Vedic beauty and wellness ritual. Wild Kasturi turmeric cold-process soap, pure steam-distilled Kannauj Gulab Jal (rose mist), and authentic Kumkumadi Tailam enriched with Kashmiri saffron.',
     contents: [
       'Wild Turmeric & Shea Butter Artisan Soap Bar',
       'Kannauj Pure Steam-Distilled Rose Water (100ml)',
@@ -170,81 +244,32 @@ export const products = [
     fallbackEmoji: '🌹',
     inStock: true,
     occasions: ['self-care', 'birthday', 'wedding', 'anniversary']
-  },
-  {
-    id: 'p7',
-    name: 'Mysore Sandalwood & Temple Incense Box',
-    slug: 'mysore-sandalwood-temple-incense',
-    category: 'festive',
-    tags: ['trending', 'aromatherapy'],
-    price: 999,
-    originalPrice: 1299,
-    rating: 4.8,
-    reviewCount: 203,
-    artisan: 'Mysore Natural Aromatics • Karnataka',
-    shortDescription: 'Charcoal-free hand-rolled agarbatti, brass burner & carved Sheesham box.',
-    description: 'Immerse your space in the tranquil serenity of South Indian temple courtyards. Hand-rolled using only natural tree gums, botanical resins, and authentic Mysore sandalwood oil — completely free of toxic charcoal or chemical binders.',
-    contents: [
-      'Mysore Pure Chandan Agarbatti (25 Sticks)',
-      'Madurai Mogra Jasmine Agarbatti (25 Sticks)',
-      'Kannauj Damask Rose Agarbatti (25 Sticks)',
-      'Lacquered Brass Inverted Incense Stand',
-      'Hand-carved Jali Wood Incense Storage Box'
-    ],
-    images: [`${BASE}images/product-incense.jpg`],
-    image: `${BASE}images/product-incense.jpg`,
-    color: '#00897B',
-    fallbackEmoji: '🌸',
-    inStock: true,
-    occasions: ['diwali', 'housewarming', 'pooja', 'just-because']
-  },
-  {
-    id: 'p8',
-    name: 'Shahi Kashmiri Kahwa & Dry Fruit Treasure',
-    slug: 'shahi-kashmiri-kahwa-treasure',
-    category: 'gourmet',
-    tags: ['gourmet', 'limited-edition'],
-    price: 2299,
-    originalPrice: 2799,
-    rating: 4.9,
-    reviewCount: 115,
-    artisan: 'Valley Harvest Collective • Srinagar, Kashmir',
-    shortDescription: 'Rare Grade-1 Kesar, green tea leaves, roasted Mamra almonds & dates.',
-    description: 'Directly sourced from the saffron orchards of Pampore, Kashmir. This exquisite box holds authentic Kangra green tea blended with cinnamon, crushed green cardamom, dried rose petals, and whole strands of Mongra saffron.',
-    contents: [
-      'Pampore Grade-1 Saffron (Mongra Kesar 1g)',
-      'Traditional Spiced Kahwa Tea Blend (100g)',
-      'Kashmiri Girdhari Walnut Kernels (150g)',
-      'Royal Medjool Stuffed Dates (6 pcs)',
-      'Artisanal Kashmiri Papier-Mâché Keepsake Box'
-    ],
-    images: [`${BASE}images/product-chai-kit.jpg`],
-    image: `${BASE}images/product-chai-kit.jpg`,
-    color: '#FFB347',
-    fallbackEmoji: '🍃',
-    inStock: true,
-    occasions: ['diwali', 'wedding', 'anniversary', 'thank-you']
   }
 ]
 
 export const categories = [
-  { id: 'all',      label: 'All Curations',  icon: '🎁' },
-  { id: 'festive',  label: 'Diwali & Utsav', icon: '🪔' },
-  { id: 'hampers',  label: 'Royal Hampers',  icon: '🧺' },
-  { id: 'gourmet',  label: 'Chai & Sweets',  icon: '☕' },
-  { id: 'wellness', label: 'Ayurveda Care',  icon: '🌿' },
-  { id: 'artisan',  label: 'Handicrafts',    icon: '🎨' }
+  { id: 'all',        label: 'All Festivals',       icon: '✨' },
+  { id: 'diwali',     label: 'Diwali & Utsav',      icon: '🪔' },
+  { id: 'eid',        label: 'Eid Mubarak',         icon: '🌙' },
+  { id: 'christmas',  label: 'Christmas & Winter',  icon: '🎄' },
+  { id: 'durgapuja',  label: 'Durga Puja & Pujo',   icon: '🌺' },
+  { id: 'holi',       label: 'Holi Celebrations',   icon: '🎨' },
+  { id: 'gourmet',    label: 'Chai & Sweets',       icon: '☕' },
+  { id: 'pooja',      label: 'Pooja & Brassware',   icon: '🪆' },
+  { id: 'wellness',   label: 'Ayurveda & Spa',      icon: '🌿' }
 ]
 
 export const occasions = [
-  { id: 'diwali',       label: 'Diwali & Utsav',  emoji: '🪔' },
-  { id: 'wedding',      label: 'Shaadi & Vivah',  emoji: '💍' },
-  { id: 'housewarming', label: 'Griha Pravesh',   emoji: '🏡' },
-  { id: 'birthday',     label: 'Janamdin',        emoji: '🎂' },
-  { id: 'anniversary',  label: 'Anniversary',     emoji: '❤️' },
-  { id: 'pooja',        label: 'Pooja & Shubh',   emoji: '✨' },
-  { id: 'self-care',    label: 'Self-Care Ritual',emoji: '🌸' },
-  { id: 'thank-you',    label: 'Dhanyawad',       emoji: '💌' }
+  { id: 'diwali',       label: 'Diwali',         emoji: '🪔' },
+  { id: 'eid',          label: 'Eid Mubarak',    emoji: '🌙' },
+  { id: 'christmas',    label: 'Christmas',      emoji: '🎄' },
+  { id: 'durga-puja',   label: 'Durga Puja',     emoji: '🌺' },
+  { id: 'holi',         label: 'Holi',           emoji: '🎨' },
+  { id: 'wedding',      label: 'Weddings',       emoji: '💍' },
+  { id: 'housewarming', label: 'Griha Pravesh',  emoji: '🏡' },
+  { id: 'birthday',     label: 'Birthdays',      emoji: '🎂' },
+  { id: 'pooja',        label: 'Sacred Pooja',   emoji: '✨' },
+  { id: 'self-care',    label: 'Self-Care',      emoji: '🌸' }
 ]
 
 export const getProductById   = (id)   => products.find(p => p.id === id)

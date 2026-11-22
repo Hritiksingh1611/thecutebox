@@ -1,15 +1,15 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { ShoppingBag, Heart, Search, Menu, X, Sparkles } from 'lucide-react'
+import { ShoppingBag, Heart, Search, Menu, X, Phone, MessageCircle } from 'lucide-react'
 import { useCartStore } from '../../store/cartStore'
 
 const NAV = [
   { label: 'Home', to: '/' },
   { label: 'Build Your Box ✨', to: '/build' },
-  { label: 'Royal Hampers', to: '/hampers' },
-  { label: 'Catalog', to: '/catalog' },
-  { label: 'Artisans of India', to: '/artisans' },
-  { label: 'Corporate Gifting', to: '/corporate' },
+  { label: 'Festival Hampers', to: '/hampers' },
+  { label: 'All Curations', to: '/catalog' },
+  { label: 'Preety Singh & Artisans', to: '/artisans' },
+  { label: 'Corporate & Bulk', to: '/corporate' },
 ]
 
 export default function Header() {
@@ -39,33 +39,40 @@ export default function Header() {
       }`}
     >
       {/* Top announcement bar */}
-      <div className="bg-gradient-to-r from-saffron-600 via-saffron-500 to-rose-gulabi text-white py-2 px-4 text-center text-xs font-semibold tracking-wider flex items-center justify-center gap-2 shadow-sm">
-        <span>🪔</span>
+      <div className="bg-gradient-to-r from-crimson-600 via-saffron-500 to-emeraldFestive-700 text-white py-2 px-3 text-center text-xs font-semibold tracking-wider flex items-center justify-center gap-2 sm:gap-4 shadow-sm">
+        <span className="hidden sm:inline">🪔 🌙 🎄 🌺</span>
         <span>
-          <strong className="font-bold">Shubh Gifting:</strong> Hand-packed with love &amp; fresh petals in Jaipur &amp; Bangalore • Free Express Delivery above ₹1,999
+          <strong>All Indian Festivals Gifting:</strong> Hand-packed in Kolkata by <strong>Preety Singh</strong> • Free Express Delivery above ₹1,999
         </span>
-        <span className="hidden sm:inline">✨</span>
+        <a
+          href="tel:9831559109"
+          className="hidden md:inline-flex items-center gap-1 bg-white/20 hover:bg-white/30 px-2.5 py-0.5 rounded-full text-[11px] font-bold"
+        >
+          <Phone size={11} /> Call: 9831559109
+        </a>
       </div>
 
       {/* Main header row */}
       <div className="container-site">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
+          {/* Logo & City Stamp */}
           <Link to="/" className="flex items-center gap-3 flex-shrink-0 group">
             <div className="relative">
               <img
                 src={`${import.meta.env.BASE_URL}logo.jpg`}
                 alt="thecutebox logo"
-                className="h-10 w-10 md:h-11 md:w-11 rounded-2xl object-contain shadow-warm-sm ring-2 ring-saffron-200 group-hover:scale-105 transition-transform"
+                className="h-10 w-10 md:h-12 md:w-12 rounded-2xl object-contain shadow-warm-sm ring-2 ring-saffron-300 group-hover:scale-105 transition-transform"
               />
               <span className="absolute -bottom-1 -right-1 text-xs">✨</span>
             </div>
             <div>
-              <span className="font-display font-bold text-xl md:text-2xl text-saffron-600 leading-none tracking-tight block">
-                thecutebox<span className="text-earth-light font-sans font-normal text-xs">.in</span>
+              <span className="font-display font-bold text-xl md:text-2xl text-indigo-deep leading-none tracking-tight block">
+                thecutebox<span className="text-saffron-600 font-sans font-normal text-xs">.in</span>
               </span>
-              <span className="text-[10px] tracking-widest text-earth-light uppercase font-semibold">
-                Artisan Indian Gifting
+              <span className="text-[10px] tracking-widest text-saffron-700 uppercase font-bold flex items-center gap-1">
+                <span>Kolkata Studio</span>
+                <span className="text-earth-pale">•</span>
+                <span className="text-earth-light">By Preety Singh</span>
               </span>
             </div>
           </Link>
@@ -90,13 +97,24 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2.5">
+          {/* Actions & WhatsApp Contact */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Quick WhatsApp with Preety Singh */}
+            <a
+              href="https://wa.me/919831559109?text=Namaste%20Preety%20ji,%20I%20am%20interested%20in%20thecutebox%20festive%20gifting%20boxes!"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 bg-emerald-600 text-white px-3.5 py-1.5 rounded-full text-xs font-bold hover:bg-emerald-700 transition-colors shadow-sm"
+            >
+              <MessageCircle size={14} />
+              <span>WhatsApp Preety</span>
+            </a>
+
             {/* Search button */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Search gifts"
-              className="p-2.5 rounded-full text-indigo-deep/80 hover:text-saffron-600 hover:bg-saffron-50 transition-all"
+              className="p-2 sm:p-2.5 rounded-full text-indigo-deep/80 hover:text-saffron-600 hover:bg-saffron-50 transition-all"
             >
               <Search size={19} />
             </button>
@@ -113,9 +131,9 @@ export default function Header() {
             {/* Cart Button */}
             <button
               onClick={openCart}
-              className="flex items-center gap-2 bg-saffron-500 text-white px-4 md:px-5 py-2.5 rounded-full text-sm font-bold hover:bg-saffron-600 active:scale-95 transition-all shadow-warm hover:shadow-warm-lg"
+              className="flex items-center gap-2 bg-saffron-500 text-white px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold hover:bg-saffron-600 active:scale-95 transition-all shadow-warm hover:shadow-warm-lg"
             >
-              <ShoppingBag size={17} />
+              <ShoppingBag size={16} />
               {count > 0 ? (
                 <span>
                   {count} <span className="opacity-80">|</span> ₹{total.toLocaleString('en-IN')}
@@ -146,7 +164,7 @@ export default function Header() {
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search terracotta diyas, masala chai kits, brass thalis, royal hampers…"
+                placeholder="Search Eid ittar & dates, Christmas plum cake, Pujo Kantha silk, Diwali diyas, chai kits…"
                 className="input-field pl-11 shadow-warm-sm"
                 onKeyDown={e => e.key === 'Escape' && setSearchOpen(false)}
               />
@@ -166,7 +184,20 @@ export default function Header() {
       {/* Mobile Nav Drawer */}
       {mobileOpen && (
         <div className="lg:hidden bg-ivory border-t border-saffron-100 shadow-warm-xl animate-fade-in">
-          <nav className="container-site py-5 flex flex-col gap-1.5">
+          <nav className="container-site py-5 flex flex-col gap-2">
+            <div className="p-3 bg-saffron-50 rounded-2xl flex items-center justify-between mb-2">
+              <div>
+                <p className="font-bold text-xs text-indigo-deep">Preety Singh (Founder)</p>
+                <p className="text-[11px] text-earth-light">Kolkata Studio: 9831559109</p>
+              </div>
+              <a
+                href="https://wa.me/919831559109"
+                className="bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1"
+              >
+                <MessageCircle size={13} /> Chat
+              </a>
+            </div>
+
             {NAV.map(({ label, to }) => (
               <Link
                 key={to}

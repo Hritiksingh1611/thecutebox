@@ -1,109 +1,235 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Sparkles, Gift, Package, Star, ChevronRight } from 'lucide-react'
+import { ArrowRight, Sparkles, Gift, Package, Star, ChevronRight, Phone, MessageCircle, Heart } from 'lucide-react'
 import ProductCard from '../components/product/ProductCard'
-import { products, occasions } from '../data/products'
+import { products, occasions, categories } from '../data/products'
 import { testimonials, artisans } from '../data/testimonials'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const BASE = import.meta.env.BASE_URL || '/thecutebox/'
 
-// ─── Hero Section ───────────────────────────────────────────────────────────
+// ─── Floating WhatsApp & Call Widget ──────────────────────────────────────────
+function FloatingContact() {
+  return (
+    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5">
+      <a
+        href="https://wa.me/919831559109?text=Namaste%20Preety%20Singh%20ji,%20I%20want%20to%20curate%20a%20thecutebox%20gift%20hamper!"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-3 rounded-full shadow-emerald font-bold text-xs sm:text-sm hover:scale-105 transition-all group"
+      >
+        <MessageCircle size={20} className="text-white" />
+        <span className="hidden sm:inline">WhatsApp Preety Singh</span>
+        <span className="bg-white/20 text-[10px] px-2 py-0.5 rounded-full font-bold">9831559109</span>
+      </a>
+    </div>
+  )
+}
+
+// ─── Hero Section with Festival Switcher ──────────────────────────────────────
 function HeroSection() {
+  const [activeTab, setActiveTab] = useState('all')
+
+  const FESTIVAL_HEROES = {
+    all: {
+      badge: 'All Indian Festivals Gifting Platform',
+      title1: 'Every Sacred Festival,',
+      title2: 'Thoughtfully Gifted.',
+      desc: 'Founded by Preety Singh in Kolkata, thecutebox brings together living craft traditions from across India. Curated with love for Eid, Diwali, Christmas, Durga Puja, weddings, and every joyous milestone.',
+      img: `${BASE}images/hero-gift.jpg`,
+      accent: 'from-saffron-500 via-rose-gulabi to-emeraldFestive-600',
+    },
+    diwali: {
+      badge: '🪔 Shubh Diwali & Dhanteras',
+      title1: 'Illuminate Hearts With',
+      title2: 'Earthen Light & Brass.',
+      desc: 'Hand-painted terracotta diyas, pure brass pooja bells, organic floral rangoli, and artisanal sweets hand-packed with fresh marigolds.',
+      img: `${BASE}images/product-diwali-diya.jpg`,
+      accent: 'from-saffron-500 to-marigold-500',
+    },
+    eid: {
+      badge: '🌙 Eid Mubarak Celebrations',
+      title1: 'Noor, Fragrance &',
+      title2: 'Royal Eid Blessings.',
+      desc: 'Jumbo Medjool dates stuffed with almonds, pure Kannauj Oud & Gulab ittar, sheer khurma kit, and engraved brass crescent trays.',
+      img: `${BASE}images/product-hamper-grand.jpg`,
+      accent: 'from-emeraldFestive-700 to-teal-500',
+    },
+    christmas: {
+      badge: '🎄 Christmas & New Year',
+      title1: 'Park Street Joy &',
+      title2: 'Spiced Plum Cakes.',
+      desc: 'Legendary Old-Kolkata spiced fruit plum cakes, Belgian cinnamon hot cocoa, pine-scented soy candles, and warmth for winter hearths.',
+      img: `${BASE}images/hero-gift.jpg`,
+      accent: 'from-crimson-600 to-emeraldFestive-700',
+    },
+    durgapuja: {
+      badge: '🌺 Sharod Utsav & Durga Puja',
+      title1: 'The Living Heart of',
+      title2: 'Kolkata Pujo Warmth.',
+      desc: 'Hand-embroidered Kantha silk pouches from Shantiniketan, organic Makaibari Darjeeling tea, brass dhunuchi, and Nolen Gur sweets.',
+      img: `${BASE}images/product-block-print.jpg`,
+      accent: 'from-crimson-600 to-saffron-500',
+    },
+  }
+
+  const current = FESTIVAL_HEROES[activeTab] || FESTIVAL_HEROES.all
+
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-gradient-hero pt-24 pb-16">
-      {/* Decorative Indian motifs & ambient glow */}
-      <div className="absolute top-12 right-0 w-[500px] h-[500px] bg-gradient-to-br from-saffron-300/30 to-marigold-300/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-0 w-80 h-80 bg-rose-pale/40 rounded-full blur-3xl pointer-events-none" />
+      {/* Decorative ambient glowing orbs */}
+      <div className="absolute top-10 right-0 w-[550px] h-[550px] bg-gradient-to-br from-saffron-300/30 via-rose-light/25 to-emeraldFestive-200/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-0 w-96 h-96 bg-gradient-to-tr from-teal-200/20 to-marigold-200/30 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Floating subtle festival charms */}
+      <div className="absolute top-28 left-8 text-2xl opacity-40 animate-float hidden lg:block">🪔</div>
+      <div className="absolute top-36 right-16 text-2xl opacity-40 animate-float-reverse hidden lg:block">🌙</div>
+      <div className="absolute bottom-28 left-20 text-2xl opacity-35 animate-float hidden lg:block">🎄</div>
+      <div className="absolute bottom-36 right-28 text-2xl opacity-35 animate-float-reverse hidden lg:block">🌺</div>
 
       <div className="container-site relative z-10">
+        {/* Interactive Festival Mood Selector */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8 bg-white/70 backdrop-blur-md p-1.5 rounded-full border border-saffron-100/80 shadow-warm-sm max-w-2xl mx-auto">
+          {[
+            { id: 'all', label: 'All Festivals ✨' },
+            { id: 'diwali', label: 'Diwali 🪔' },
+            { id: 'eid', label: 'Eid Mubarak 🌙' },
+            { id: 'christmas', label: 'Christmas 🎄' },
+            { id: 'durgapuja', label: 'Durga Puja 🌺' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+                activeTab === tab.id
+                  ? 'bg-gradient-to-r from-saffron-500 to-rose-gulabi text-white shadow-warm'
+                  : 'text-indigo-deep/75 hover:text-saffron-600 hover:bg-white/80'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         <div className="grid lg:grid-cols-12 gap-12 items-center">
-          {/* Copy */}
+          {/* Copy Column */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 bg-saffron-50 border border-saffron-200/80 text-saffron-700 px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase mb-6 shadow-sm">
+            {/* Founder Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-saffron-200 text-saffron-800 px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase mb-5 shadow-sm">
               <Sparkles size={14} className="text-saffron-500 animate-spin-slow" />
-              Boutique Indian Gifting • Hand-packed in Jaipur &amp; Bangalore
+              <span>{current.badge}</span>
+              <span className="text-earth-pale">•</span>
+              <span className="text-earth-light">Kolkata Studio</span>
             </div>
 
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-indigo-deep leading-[1.12] mb-6">
-              Gift With
-              <span className="block gradient-text-saffron italic">Sacred Intent &amp; Joy</span>
+              {current.title1}
+              <span className="block gradient-text-saffron italic">
+                {current.title2}
+              </span>
             </h1>
 
             <p className="text-base sm:text-lg text-indigo-deep/80 leading-relaxed mb-8 max-w-xl font-normal">
-              Curated artisanal gift boxes infused with India's living crafts. From hand-painted terracotta diyas and pure brass pooja thalis to estate chai and royal sweets — hand-packed with fresh marigolds and handwritten blessings.
+              {current.desc}
             </p>
 
-            <div className="flex flex-wrap gap-4 mb-10">
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4 mb-8">
               <Link to="/build" className="btn-primary text-base px-8 py-4 shadow-warm-lg">
-                Build Your Own Box <ArrowRight size={18} />
+                Build Your Custom Box <ArrowRight size={18} />
               </Link>
-              <Link to="/hampers" className="btn-secondary text-base px-8 py-4">
-                Explore Royal Hampers
+              <Link to="/hampers" className="btn-secondary text-base px-7 py-4">
+                Explore All Hampers
               </Link>
             </div>
 
+            {/* Founder Direct Line Card */}
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-3.5 border border-saffron-100 flex flex-wrap items-center justify-between gap-3 shadow-sm max-w-xl">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-saffron-100 flex items-center justify-center text-saffron-700 font-bold text-sm">
+                  PS
+                </div>
+                <div>
+                  <p className="font-bold text-xs text-indigo-deep">Curated by Preety Singh (Founder)</p>
+                  <p className="text-[11px] text-earth-light">Park Street / Salt Lake, Kolkata Studio</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href="tel:9831559109"
+                  className="inline-flex items-center gap-1.5 bg-saffron-50 text-saffron-700 hover:bg-saffron-100 px-3 py-1.5 rounded-full text-xs font-bold"
+                >
+                  <Phone size={12} /> 9831559109
+                </a>
+                <a
+                  href="https://wa.me/919831559109"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 bg-emerald-600 text-white hover:bg-emerald-700 px-3 py-1.5 rounded-full text-xs font-bold"
+                >
+                  <MessageCircle size={12} /> WhatsApp
+                </a>
+              </div>
+            </div>
+
             {/* Trust Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-saffron-200/60 text-xs text-indigo-deep/80 font-medium">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 mt-6 border-t border-saffron-200/50 text-xs text-indigo-deep/80 font-semibold">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🪔</span>
-                <span>Authentic Living Crafts</span>
+                <span>Diwali &amp; Pujo</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xl">🤝</span>
-                <span>50+ Master Artisans</span>
+                <span className="text-xl">🌙</span>
+                <span>Eid Mubarak</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xl">🌸</span>
-                <span>Natural &amp; Plastic-Free</span>
+                <span className="text-xl">🎄</span>
+                <span>Christmas &amp; Yule</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xl">⚡</span>
-                <span>Express Pan-India Delivery</span>
+                <span>Pan-India Delivery</span>
               </div>
             </div>
           </div>
 
           {/* Hero Visual Card */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-[440px]">
-              {/* Main Photo */}
-              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-warm-xl border-4 border-white/80 bg-ivory-warm relative group">
+            <div className="relative w-full max-w-[430px]">
+              {/* Main Photo with dynamic transition */}
+              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-warm-xl border-4 border-white bg-ivory-warm relative group">
                 <img
-                  src={`${BASE}images/hero-gift.jpg`}
-                  alt="thecutebox Indian artisan gift boxes"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  src={current.img}
+                  alt={current.title2}
+                  key={activeTab}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 animate-fade-in"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/75 via-indigo-deep/20 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 text-white">
-                  <span className="inline-block bg-saffron-500 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
-                    Festive Curation 2024
+                  <span className="inline-block bg-saffron-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 shadow-sm">
+                    {current.badge}
                   </span>
                   <p className="font-display font-bold text-xl md:text-2xl leading-tight text-white drop-shadow">
-                    Maha Utsav Box with Fresh Marigolds &amp; Diyas
+                    Hand-packed with love in Kolkata by Preety Singh
                   </p>
                 </div>
               </div>
 
-              {/* Floating Pill: Chai Kit */}
+              {/* Floating Pill: Kolkata Studio Phone */}
               <div className="absolute -left-6 top-1/4 bg-white/95 backdrop-blur-md rounded-2xl shadow-warm-lg p-3 flex items-center gap-3 border border-saffron-100 hidden sm:flex">
-                <div className="w-12 h-12 rounded-xl overflow-hidden bg-marigold-100 flex-shrink-0">
-                  <img
-                    src={`${BASE}images/product-chai-kit.jpg`}
-                    alt="Chai kit"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="w-11 h-11 rounded-xl bg-saffron-100 flex items-center justify-center text-xl flex-shrink-0">
+                  🎁
                 </div>
                 <div>
-                  <p className="font-display font-bold text-xs text-indigo-deep">Royal Chai Kit</p>
-                  <p className="text-saffron-600 font-bold text-xs">₹1,099</p>
+                  <p className="font-display font-bold text-xs text-indigo-deep">All Festivals Curation</p>
+                  <p className="text-saffron-600 font-bold text-xs">Call: 9831559109</p>
                 </div>
               </div>
 
               {/* Floating Pill: Ratings */}
-              <div className="absolute -right-6 bottom-16 bg-white/95 backdrop-blur-md rounded-2xl shadow-warm-lg p-3.5 flex items-center gap-3 border border-saffron-100 hidden sm:flex">
+              <div className="absolute -right-6 bottom-16 bg-white/95 backdrop-blur-md rounded-2xl shadow-warm-lg p-3.5 flex items-center gap-2.5 border border-saffron-100 hidden sm:flex">
                 <div className="w-10 h-10 rounded-full bg-marigold-50 flex items-center justify-center text-xl">
-                  🪔
+                  ✨
                 </div>
                 <div>
                   <div className="flex items-center gap-0.5">
@@ -112,7 +238,7 @@ function HeroSection() {
                     ))}
                   </div>
                   <p className="font-sans font-bold text-[11px] text-indigo-deep mt-0.5">
-                    4.9 / 5 • 1,200+ Gifters
+                    1,200+ Joyous Reviews
                   </p>
                 </div>
               </div>
@@ -124,7 +250,7 @@ function HeroSection() {
   )
 }
 
-// ─── Occasions Strip ─────────────────────────────────────────────────────────
+// ─── Occasions & Festivals Strip ─────────────────────────────────────────────
 function OccasionsStrip() {
   const { ref, isVisible } = useScrollReveal()
   return (
@@ -136,10 +262,10 @@ function OccasionsStrip() {
     >
       <div className="container-site">
         <div className="flex items-center justify-between gap-4 overflow-x-auto pb-2 scrollbar-hide">
-          <span className="font-display font-semibold text-xs uppercase tracking-widest text-saffron-600 flex-shrink-0">
-            Gift by Occasion:
+          <span className="font-display font-bold text-xs uppercase tracking-widest text-saffron-700 flex-shrink-0 flex items-center gap-1.5">
+            <span>✨</span> Choose by Festival:
           </span>
-          <div className="flex gap-2.5">
+          <div className="flex gap-2">
             {occasions.map(({ id, label, emoji }) => (
               <Link
                 key={id}
@@ -157,50 +283,55 @@ function OccasionsStrip() {
   )
 }
 
-// ─── Category Bento ──────────────────────────────────────────────────────────
+// ─── Multi-Festival Bento ────────────────────────────────────────────────────
 function CategoryBento() {
   const { ref, isVisible } = useScrollReveal()
   const bentoItems = [
     {
-      label: 'Diwali & Festive Light',
+      label: 'Diwali & Dhanteras Lights',
       emoji: '🪔',
-      desc: 'Terracotta diyas, pooja brass & rangoli sets',
-      to: '/catalog?cat=festive',
+      desc: 'Terracotta diyas, pooja brass bells & rangoli colors',
+      to: '/catalog?occasion=diwali',
       img: `${BASE}images/product-diwali-diya.jpg`,
       large: true,
+      tag: 'Festive Lights',
     },
     {
-      label: 'Royal Utsav Hampers',
-      emoji: '🧺',
-      desc: 'Heirloom rosewood trunks & brass idols',
-      to: '/hampers',
+      label: 'Noor-e-Eid Mubarak',
+      emoji: '🌙',
+      desc: 'Stuffed Medjool dates, Oud ittar & brass crescent tray',
+      to: '/catalog?occasion=eid',
       img: `${BASE}images/product-hamper-grand.jpg`,
+      tag: 'Royal Eid',
     },
     {
-      label: 'Royal Chai & Kahwa',
-      emoji: '☕',
-      desc: 'Hammered brass kulhad & whole spice blends',
-      to: '/catalog?cat=gourmet',
-      img: `${BASE}images/product-chai-kit.jpg`,
+      label: 'Old-Kolkata Christmas Joy',
+      emoji: '🎄',
+      desc: 'Rich spiced fruit plum cake, cocoa & pine candle',
+      to: '/catalog?occasion=christmas',
+      img: `${BASE}images/hero-gift.jpg`,
+      tag: 'Park Street Joy',
     },
     {
-      label: 'Ayurveda & Haldi Wellness',
-      emoji: '🌿',
-      desc: 'Pure saffron serum, rose mist & kansa wands',
-      to: '/catalog?cat=wellness',
-      img: `${BASE}images/product-haldi-box.jpg`,
-    },
-    {
-      label: 'Bagru Block-Print Crafts',
-      emoji: '🎨',
-      desc: 'Natural indigo diaries, pouches & cotton wraps',
-      to: '/catalog?cat=artisan',
+      label: 'Sharod Utsav & Durga Puja',
+      emoji: '🌺',
+      desc: 'Kantha silk clutch, Darjeeling Makaibari tea & dhunuchi',
+      to: '/catalog?occasion=durga-puja',
       img: `${BASE}images/product-block-print.jpg`,
+      tag: 'Kolkata Heritage',
+    },
+    {
+      label: 'Rang Barse Herbal Holi',
+      emoji: '🎨',
+      desc: 'Skin-safe organic floral gulal, thandai & chandan',
+      to: '/catalog?occasion=holi',
+      img: `${BASE}images/product-haldi-box.jpg`,
+      tag: 'Spring Colors',
     },
   ]
 
   return (
-    <section className="section-pad bg-ivory">
+    <section className="section-pad bg-ivory relative">
       <div
         ref={ref}
         className={`container-site transition-all duration-700 ${
@@ -208,17 +339,17 @@ function CategoryBento() {
         }`}
       >
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="tag bg-saffron-100 text-saffron-700 mb-3">Living Heritage</span>
+          <span className="tag bg-saffron-100 text-saffron-700 mb-3">All Festivals • One Destination</span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-deep mb-4">
-            Curations Rooted in Indian Craft
+            Flavours of Every Celebration
           </h2>
           <p className="text-sm sm:text-base text-indigo-deep/75 leading-relaxed">
-            Every curation honors generational craft families — from clay turners of Jaipur to brass casters of Moradabad.
+            From the lights of Diwali and the crescent of Eid to Christmas carols on Park Street and the rhythm of Pujo dhaks — we weave India’s grand festivities into each artisanal box.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 auto-rows-[240px]">
-          {bentoItems.map(({ label, emoji, desc, to, img, large }) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 auto-rows-[250px]">
+          {bentoItems.map(({ label, emoji, desc, to, img, large, tag }) => (
             <Link
               key={label}
               to={to}
@@ -231,10 +362,13 @@ function CategoryBento() {
                 alt={label}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/80 via-indigo-deep/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/85 via-indigo-deep/30 to-transparent" />
 
               <div className="relative z-10 text-white">
-                <span className="text-3xl block mb-2">{emoji}</span>
+                <span className="inline-block bg-white/20 backdrop-blur-sm text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2">
+                  {tag}
+                </span>
+                <span className="text-3xl block mb-1">{emoji}</span>
                 <p className="font-display font-bold text-xl md:text-2xl mb-1 text-white">
                   {label}
                 </p>
@@ -261,16 +395,16 @@ function FeaturedProducts() {
       <div className="container-site">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
-            <span className="tag bg-saffron-100 text-saffron-700 mb-2">Most Cherished</span>
+            <span className="tag bg-saffron-100 text-saffron-700 mb-2">Curated With Intent</span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-indigo-deep">
-              Bestselling Festive Gifts
+              Featured Festival Curations
             </h2>
             <p className="text-sm text-earth-light mt-1">
-              Hand-picked curations flying off our studio shelves this season
+              Hand-packed in Kolkata with authentic artisanal provenance
             </p>
           </div>
           <Link to="/catalog" className="btn-secondary self-start sm:self-auto">
-            View Complete Collection <ArrowRight size={16} />
+            View All Curations <ArrowRight size={16} />
           </Link>
         </div>
 
@@ -284,19 +418,19 @@ function FeaturedProducts() {
   )
 }
 
-// ─── Gift Finder Quiz ─────────────────────────────────────────────────────────
+// ─── Gift Recommendation Quiz ─────────────────────────────────────────────────
 const QUIZ_STEPS = [
   {
-    q: 'Who are you blessing with this gift?',
-    options: ['Parents & Elders', 'New Couple / Newlyweds', 'Colleagues & Clients', 'Friends & Siblings', 'Myself (Self-Care)'],
+    q: 'Which festival or celebration are you gifting for?',
+    options: ['Diwali & Dhanteras', 'Eid-ul-Fitr / Eid Mubarak', 'Christmas & New Year', 'Durga Puja & Navratri', 'Holi Celebrations', 'Wedding / Griha Pravesh'],
   },
   {
-    q: "What is the auspicious occasion?",
-    options: ['Diwali & Festive Utsav', 'Griha Pravesh (Housewarming)', 'Wedding & Shaadi', 'Birthday (Janamdin)', 'Gratitude / Dhanyawad'],
+    q: 'Who is the lucky recipient?',
+    options: ['Parents & Family Elders', 'Clients & Business Partners', 'Close Friends & Siblings', 'Newly Married Couple', 'Self-Care / Personal Treat'],
   },
   {
-    q: 'What is your gifting budget?',
-    options: ['Under ₹1,500', '₹1,500 – ₹3,000', '₹3,000 – ₹5,000', 'Luxury Heritage (₹5,000+)'],
+    q: 'What is your comfortable budget?',
+    options: ['Under ₹1,500', '₹1,500 – ₹2,500', '₹2,500 – ₹4,000', 'Royal Luxury (₹4,000+)'],
   },
 ]
 
@@ -333,13 +467,13 @@ function GiftFinder() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-saffron-500/20 border border-saffron-400/40 text-saffron-300 px-4 py-1.5 rounded-full text-xs font-bold mb-6 uppercase tracking-wider">
             <Sparkles size={14} />
-            Gift Recommendation Engine
+            Festival Gift Matcher
           </div>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Find the Auspicious Gift
+            Find the Perfect Festival Hamper
           </h2>
           <p className="text-ivory/70 text-base mb-10 max-w-md mx-auto">
-            Answer 3 quick questions. We will hand-match the ideal Indian craft box for your loved one.
+            3 simple questions to hand-match the ideal Indian celebration box.
           </p>
 
           <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-white/15 shadow-warm-xl">
@@ -374,16 +508,16 @@ function GiftFinder() {
               </>
             ) : (
               <div>
-                <div className="text-5xl mb-4">🪔</div>
+                <div className="text-5xl mb-4">✨</div>
                 <h3 className="font-display text-2xl font-bold mb-2 text-ivory">
                   Ideal Curation Discovered!
                 </h3>
                 <p className="text-ivory/70 text-sm mb-6">
-                  Based on: <span className="font-semibold text-saffron-300">{answers.join(' • ')}</span>
+                  Selected: <span className="font-semibold text-saffron-300">{answers.join(' • ')}</span>
                 </p>
                 <div className="flex flex-wrap gap-3 justify-center">
                   <Link to="/catalog" className="btn-primary">
-                    View Recommended Boxes <ArrowRight size={16} />
+                    View Matches <ArrowRight size={16} />
                   </Link>
                   <button
                     onClick={reset}
@@ -416,17 +550,17 @@ function BuildYourBoxCTA() {
           {/* Image */}
           <div className="md:col-span-5 relative min-h-[300px] md:min-h-full bg-ivory-warm">
             <img
-              src={`${BASE}images/product-hamper-grand.jpg`}
-              alt="Custom Indian gift box"
+              src={`${BASE}images/hero-gift.jpg`}
+              alt="Custom Indian gift box by Preety Singh"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/70 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 text-white">
               <span className="text-xs uppercase font-bold tracking-wider text-marigold-300 block mb-1">
-                Custom Hand-Packing
+                Kolkata Studio Signature
               </span>
               <p className="font-display font-bold text-lg text-white">
-                Finished with fresh marigolds &amp; brass charm
+                Hand-tied with Banarasi silk ribbon &amp; handwritten blessing
               </p>
             </div>
           </div>
@@ -438,18 +572,18 @@ function BuildYourBoxCTA() {
               Interactive Custom Box Builder
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-indigo-deep mb-4 leading-tight">
-              Craft Your Personalized Gift Box in 3 Steps
+              Create Your Personalized Festival Box
             </h2>
             <p className="text-indigo-deep/70 text-sm sm:text-base leading-relaxed mb-6">
-              Hand-pick your favorite artisan treasures, write your personal message on seed-paper, and select your signature festive ribbon. We package each item with hand-pressed petals and brass accents.
+              Pick up to 6 treasures across any festival flavor — diyas, plum cakes, ittar, Darjeeling tea, or chai kulhads. Preety Singh personally ensures each box is hand-packed with fresh petals and your custom blessing.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-8 text-sm">
               {[
-                'Choose from 8+ living craft items',
-                'Banarasi silk or Kraft paper wrapping',
-                'Handwritten calligraphy message note',
-                'Real-time photo proof before dispatch',
+                'Mix & match items across any festival',
+                'Banarasi Silk, Dabu wrap, or Kraft packaging',
+                'Handwritten calligraphy note included',
+                'Direct-to-recipient Pan-India delivery',
               ].map((f) => (
                 <div key={f} className="flex items-center gap-2.5 text-indigo-deep">
                   <span className="w-5 h-5 rounded-full bg-saffron-100 text-saffron-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
@@ -462,7 +596,7 @@ function BuildYourBoxCTA() {
 
             <div className="flex flex-wrap gap-4">
               <Link to="/build" className="btn-primary text-base px-8 py-3.5 shadow-warm">
-                Start Building Now <ArrowRight size={18} />
+                Start Building Your Box <ArrowRight size={18} />
               </Link>
             </div>
           </div>
@@ -472,7 +606,7 @@ function BuildYourBoxCTA() {
   )
 }
 
-// ─── Artisan Spotlight ────────────────────────────────────────────────────────
+// ─── Preety Singh & Artisans Spotlight ────────────────────────────────────────
 function ArtisanSpotlight() {
   const { ref, isVisible } = useScrollReveal()
   return (
@@ -484,17 +618,17 @@ function ArtisanSpotlight() {
     >
       <div className="container-site">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="tag bg-saffron-100 text-saffron-700 mb-3">Custodians of Heritage</span>
+          <span className="tag bg-saffron-100 text-saffron-700 mb-3">The People Behind the Craft</span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-indigo-deep mb-3">
-            Meet the Master Artisans
+            Preety Singh &amp; The Artisan Guild
           </h2>
           <p className="text-indigo-deep/70 text-sm sm:text-base">
-            Every product in your box supports generational craft families with fair, dignity-first livelihoods across rural India.
+            From our central studio in Kolkata, we connect generational craft communities across West Bengal, Rajasthan, Uttar Pradesh, and Kashmir.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {artisans.map((a, i) => (
+          {artisans.map((a) => (
             <div
               key={a.id}
               className="bg-white rounded-3xl overflow-hidden shadow-warm hover:shadow-warm-lg transition-all duration-300 hover:-translate-y-1 border border-saffron-100/60 flex flex-col"
@@ -522,9 +656,9 @@ function ArtisanSpotlight() {
                   </p>
                 </div>
                 <div className="pt-4 mt-4 border-t border-saffron-50 text-xs font-bold text-indigo-deep/60 flex justify-between items-center">
-                  <span>{a.productCount} creations on thecutebox</span>
+                  <span>Contact: {a.contact}</span>
                   <Link to="/artisans" className="text-saffron-600 hover:underline">
-                    Read story →
+                    View profile →
                   </Link>
                 </div>
               </div>
@@ -554,10 +688,10 @@ function Testimonials() {
             ))}
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-indigo-deep mb-2">
-            Loved Across India
+            Stories From Our Patrons
           </h2>
           <p className="text-earth-light text-sm">
-            Stories from people who celebrated moments with thecutebox
+            Celebrating Eid, Christmas, Durga Puja, and Diwali with thecutebox
           </p>
         </div>
 
@@ -611,6 +745,7 @@ export default function HomePage() {
       <BuildYourBoxCTA />
       <ArtisanSpotlight />
       <Testimonials />
+      <FloatingContact />
     </main>
   )
 }

@@ -10,24 +10,31 @@ const STEP_LABELS = ['Choose Craft Items', 'Festive Packaging', 'Review & Bless'
 const WRAP_OPTIONS = [
   {
     id: 'kraft-marigold',
-    label: 'Terracotta Kraft with Fresh Marigold',
+    label: 'Terracotta Kraft with Fresh Marigold (Diwali & Everyday)',
     emoji: '🌼',
     desc: 'Eco-friendly recycled kraft box wrapped in natural jute ribbon with a real dried marigold blossom',
     extra: 0,
   },
   {
     id: 'banarasi-silk',
-    label: 'Royal Banarasi Silk Potli & Box',
-    emoji: '👑',
-    desc: 'Lined in saffron raw silk with golden zari border ribbon and brass peacock seal',
+    label: 'Royal Emerald & Gold Silk (Eid & Shaadi Special)',
+    emoji: '🌙',
+    desc: 'Lined in emerald green raw silk with golden zari border ribbon and brass crescent or peacock seal',
     extra: 249,
   },
   {
-    id: 'bagru-blockprint',
-    label: 'Dabu Hand-Block Cotton Fabric Wrap',
-    emoji: '🎨',
-    desc: 'Japanese Furoshiki style wrap made from authentic Indigo block-print cotton from Bagru',
+    id: 'winter-crimson',
+    label: 'Winter Pine & Crimson Velvet Wrap (Christmas & New Year)',
+    emoji: '🎄',
+    desc: 'Holiday crimson velvet ribbon with dried pine sprig, cinnamon stick, and candy cane charm',
     extra: 199,
+  },
+  {
+    id: 'kantha-silk',
+    label: 'Shantiniketan Kantha Embroidered Wrap (Durga Puja Heritage)',
+    emoji: '🌺',
+    desc: 'Traditional running-stitch Kantha pure cotton-silk Furoshiki reusable art wrap',
+    extra: 249,
   },
 ]
 
@@ -45,8 +52,8 @@ export default function BuildYourBoxPage() {
       sel.find((s) => s.id === p.id)
         ? sel.filter((s) => s.id !== p.id)
         : sel.length < 6
-        ? [...sel, p]
-        : sel
+          ? [...sel, p]
+          : sel
     )
   }
 
@@ -77,15 +84,15 @@ export default function BuildYourBoxPage() {
       <div className="container-site max-w-5xl">
         {/* Header */}
         <div className="text-center mb-10 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 text-saffron-600 text-xs font-bold tracking-widest uppercase mb-3 bg-saffron-100 px-4 py-1.5 rounded-full">
+          <div className="inline-flex items-center gap-2 text-saffron-700 text-xs font-bold tracking-widest uppercase mb-3 bg-saffron-100 px-4 py-1.5 rounded-full">
             <Sparkles size={14} />
-            Shubh Custom Box Builder
+            <span>Kolkata Studio • Curated by Preety Singh (+91 9831559109)</span>
           </div>
           <h1 className="font-display text-4xl sm:text-5xl font-bold text-indigo-deep mb-3">
-            Build Your Own Gift Box
+            Build Your Own Festival Box
           </h1>
           <p className="text-indigo-deep/70 text-sm sm:text-base">
-            Hand-select up to 6 artisan treasures. We hand-pack each box with fragrant petals and your handwritten note.
+            Mix and match treasures for Eid, Christmas, Durga Puja, or Diwali. We hand-pack each box with fresh petals, your chosen festive wrap, and a handwritten card.
           </p>
         </div>
 
@@ -94,22 +101,20 @@ export default function BuildYourBoxPage() {
           {STEP_LABELS.map((label, i) => (
             <div key={label} className="flex items-center">
               <div
-                className={`flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all ${
-                  i === step
+                className={`flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all ${i === step
                     ? 'bg-saffron-500 text-white shadow-warm'
                     : i < step
-                    ? 'bg-saffron-100 text-saffron-700'
-                    : 'bg-white text-earth-light border border-saffron-100'
-                }`}
+                      ? 'bg-saffron-100 text-saffron-700'
+                      : 'bg-white text-earth-light border border-saffron-100'
+                  }`}
               >
                 {i < step ? <Check size={14} /> : <span>{i + 1}</span>}
                 <span className="hidden sm:inline">{label}</span>
               </div>
               {i < STEP_LABELS.length - 1 && (
                 <div
-                  className={`h-0.5 w-6 sm:w-10 mx-1 ${
-                    i < step ? 'bg-saffron-400' : 'bg-saffron-100'
-                  }`}
+                  className={`h-0.5 w-6 sm:w-10 mx-1 ${i < step ? 'bg-saffron-400' : 'bg-saffron-100'
+                    }`}
                 />
               )}
             </div>
@@ -165,11 +170,10 @@ export default function BuildYourBoxPage() {
                   <button
                     key={p.id}
                     onClick={() => toggleProduct(p)}
-                    className={`text-left rounded-3xl overflow-hidden border-2 transition-all duration-300 flex flex-col justify-between ${
-                      isSelected
+                    className={`text-left rounded-3xl overflow-hidden border-2 transition-all duration-300 flex flex-col justify-between ${isSelected
                         ? 'border-saffron-500 shadow-warm-lg bg-saffron-50/50 scale-[1.02]'
                         : 'border-saffron-100 bg-white hover:border-saffron-300 shadow-sm'
-                    }`}
+                      }`}
                   >
                     <div className="relative aspect-video w-full overflow-hidden bg-ivory-warm">
                       <img src={imgSrc} alt={p.name} className="w-full h-full object-cover" />
@@ -231,11 +235,10 @@ export default function BuildYourBoxPage() {
                   {WRAP_OPTIONS.map((opt) => (
                     <label
                       key={opt.id}
-                      className={`flex items-start gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${
-                        wrap === opt.id
+                      className={`flex items-start gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${wrap === opt.id
                           ? 'border-saffron-500 bg-saffron-50/60 shadow-sm'
                           : 'border-saffron-100 bg-ivory/40 hover:border-saffron-300'
-                      }`}
+                        }`}
                     >
                       <input
                         type="radio"

@@ -4,7 +4,12 @@ import { products } from '../data/products'
 import ProductCard from '../components/product/ProductCard'
 
 export default function HampersPage() {
-  const hampers = products.filter((p) => p.category === 'hampers' || p.tags.includes('premium'))
+  const hampers = products.filter(
+    (p) =>
+      p.tags.includes('premium') ||
+      p.tags.includes('bestseller') ||
+      ['eid', 'christmas', 'durgapuja', 'diwali', 'hampers'].includes(p.category)
+  )
 
   return (
     <main className="pt-28 pb-20 bg-ivory min-h-screen">
@@ -12,13 +17,13 @@ export default function HampersPage() {
       <section className="bg-gradient-to-br from-ivory via-ivory-warm to-saffron-50 py-16 md:py-24 mb-12 border-b border-saffron-100">
         <div className="container-site text-center max-w-3xl mx-auto">
           <span className="tag bg-saffron-100 text-saffron-700 mb-4">
-            👑 Shahi Curations • Ready to Gift
+            👑 Curated in Kolkata by Preety Singh (+91 9831559109)
           </span>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-indigo-deep mb-5">
-            Royal Festive Hampers
+            Royal Festival Hampers
           </h1>
           <p className="text-indigo-deep/75 text-base sm:text-lg leading-relaxed mb-8">
-            Ornate handcrafted keepsakes, brass sanctum idols, and luxury gourmet sweets — packed in heirloom rosewood chests lined with banarasi silk.
+            Grand curations for Eid Mubarak, Christmas, Durga Puja, and Diwali. Packed with authentic artisanal treasures, royal sweets, and handwritten blessings.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">

@@ -19,7 +19,7 @@ export default function ProductCard({ product, index = 0 }) {
   return (
     <div
       ref={ref}
-      className={`group relative bg-white rounded-3xl overflow-hidden shadow-warm product-card-hover border border-saffron-100/60 transition-all duration-500 flex flex-col ${
+      className={`group relative bg-white rounded-3xl overflow-hidden shadow-warm product-card-hover border border-saffron-100/70 transition-all duration-500 flex flex-col ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
       }`}
       style={{ transitionDelay: `${index * 80}ms` }}
@@ -40,13 +40,13 @@ export default function ProductCard({ product, index = 0 }) {
               {product.fallbackEmoji || '🎁'}
             </span>
             <span className="font-display font-semibold text-xs text-saffron-700 tracking-wider uppercase">
-              Artisan Indian Curation
+              {product.festival || 'Indian Festive Curation'}
             </span>
           </div>
         )}
 
         {/* Shading overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
         {/* Quick Add CTA on hover */}
         <button
@@ -55,24 +55,14 @@ export default function ProductCard({ product, index = 0 }) {
           className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-sm text-indigo-deep font-sans font-bold text-xs py-2.5 rounded-full flex items-center justify-center gap-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-saffron-500 hover:text-white shadow-warm disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <ShoppingBag size={14} />
-          {product.inStock ? 'Add to Cutebox' : 'Out of Stock'}
+          {product.inStock ? 'Add to Box' : 'Handcrafting'}
         </button>
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
-          {product.tags.includes('bestseller') && (
-            <span className="tag bg-saffron-500 text-white text-[10px] shadow-sm">
-              ✨ Bestseller
-            </span>
-          )}
-          {product.tags.includes('festive') && (
-            <span className="tag bg-marigold-500 text-indigo-deep text-[10px] shadow-sm">
-              🪔 Festive Special
-            </span>
-          )}
-          {product.tags.includes('luxury') && (
-            <span className="tag bg-indigo-deep text-marigold-300 text-[10px] shadow-sm">
-              👑 Royal Curation
+          {product.festival && (
+            <span className="tag bg-indigo-deep/90 text-marigold-300 backdrop-blur-sm text-[10px] shadow-sm">
+              {product.festival}
             </span>
           )}
           {discount && (
@@ -96,7 +86,7 @@ export default function ProductCard({ product, index = 0 }) {
         </button>
 
         {!product.inStock && (
-          <div className="absolute inset-0 bg-ivory/80 backdrop-blur-[2px] flex items-center justify-center z-20">
+          <div className="absolute inset-0 bg-ivory/85 backdrop-blur-[2px] flex items-center justify-center z-20">
             <span className="font-semibold text-xs tracking-wider uppercase text-earth-light bg-white px-4 py-2 rounded-full shadow-warm-sm border border-saffron-100">
               Handcrafting in Progress
             </span>
@@ -113,6 +103,9 @@ export default function ProductCard({ product, index = 0 }) {
           <h3 className="font-display font-semibold text-base text-indigo-deep leading-snug line-clamp-2 mb-2 group-hover:text-saffron-600 transition-colors">
             {product.name}
           </h3>
+          <p className="text-xs text-earth-light line-clamp-2 mb-3">
+            {product.shortDescription}
+          </p>
         </div>
 
         <div>
