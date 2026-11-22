@@ -38,7 +38,7 @@ export default function Header() {
         <div className="flex items-center gap-1.5 truncate">
           <span>✨</span>
           <span className="truncate">
-            All Festivals Gifting • By <strong>Preety Singh</strong> (Nagerbazar, Kolkata - 700074)
+            All Gifting • 14th Feb Valentine • Birthdays • Festivals • By <strong>Preety Singh</strong> (Nagerbazar, Kolkata - 700074)
           </span>
         </div>
         <a

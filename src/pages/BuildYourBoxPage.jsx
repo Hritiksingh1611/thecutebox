@@ -9,6 +9,20 @@ const STEP_LABELS = ['Choose Craft Items', 'Festive Packaging', 'Review & Bless'
 
 const WRAP_OPTIONS = [
   {
+    id: 'valentine-amour',
+    label: '14th Feb Love & Crimson Velvet Bow (Valentine Special)',
+    emoji: '💖',
+    desc: 'Deep crimson satin & velvet ribbon, real dried rose petals, vintage brass heart wax seal & love card',
+    extra: 249,
+  },
+  {
+    id: 'birthday-confetti',
+    label: 'Birthday Sparkle & Confetti Ribbon (Birthdays)',
+    emoji: '🎂',
+    desc: 'Golden celebratory ribbon, sparkling birthday confetti bed, and personalized "Make a Wish" tag',
+    extra: 199,
+  },
+  {
     id: 'kraft-marigold',
     label: 'Terracotta Kraft with Fresh Marigold (Diwali & Everyday)',
     emoji: '🌼',
@@ -64,7 +78,7 @@ export default function BuildYourBoxPage() {
     const bundle = {
       id: `custom-indian-box-${Date.now()}`,
       name: `Custom Indian Artisan Box (${selected.length} items)`,
-      artisan: 'Curated by You • Hand-packed in Jaipur',
+      artisan: 'Curated by You • Hand-packed by Preety Singh (Nagerbazar, Kolkata - 700074)',
       price: subtotal,
       images: [selected[0]?.images?.[0] || selected[0]?.image || `${BASE}images/hero-gift.jpg`],
       image: selected[0]?.images?.[0] || selected[0]?.image || `${BASE}images/hero-gift.jpg`,

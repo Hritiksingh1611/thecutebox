@@ -51,10 +51,10 @@ export default function CatalogPage() {
             <span>Preety Singh: 9831559109</span>
           </div>
           <h1 className="font-display text-4xl sm:text-5xl font-bold text-indigo-deep mb-3">
-            All-Festivals Gift Catalog
+            Boutique Gift Catalog &amp; Hampers
           </h1>
           <p className="text-sm sm:text-base text-indigo-deep/75">
-            Diwali diyas, Eid ittar &amp; dates, Old-Kolkata Christmas plum cakes, Durga Puja Kantha silk, and gourmet chai kits.
+            14th Feb Valentine curations, Birthday celebration boxes, luxury hampers, and authentic festival curations (Eid, Diwali, Christmas, Durga Puja).
           </p>
         </div>
 

@@ -16,26 +16,47 @@ function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp with Preety Singh"
-      className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-full shadow-emerald font-bold text-xs hover:scale-105 transition-all group border-2 border-white"
+      className="fixed bottom-5 right-5 z-40 flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-full shadow-emerald font-bold text-xs hover:scale-105 transition-all group border-2 border-white/90"
     >
-      <MessageCircle size={18} className="fill-white/20" />
+      <MessageCircle size={16} className="fill-white/20" />
       <span className="hidden sm:inline">WhatsApp Preety Singh</span>
       <span className="bg-white/20 text-[10px] px-1.5 py-0.5 rounded font-mono font-bold">9831559109</span>
     </a>
   )
 }
 
-// ─── Hero Section with Festival Switcher ──────────────────────────────────────
+// ─── Hero Section with Occasion Switcher ──────────────────────────────────────
 function HeroSection() {
   const [activeTab, setActiveTab] = useState('all')
 
-  const FESTIVAL_HEROES = {
+  const OCCASION_HEROES = {
     all: {
-      badge: 'All Indian Festivals Gifting',
-      title1: 'Every Sacred Festival,',
+      badge: 'Boutique Gifting • By Preety Singh',
+      title1: 'Every Special Moment,',
       title2: 'Thoughtfully Gifted.',
-      desc: 'Founded by Preety Singh in Nagerbazar, Kolkata, thecutebox brings together living craft traditions from across India for Eid, Diwali, Christmas, Durga Puja, and joyous milestones.',
+      desc: 'Curated with personal warmth in Nagerbazar, Kolkata. From 14th Feb Valentine romance and joyful birthday hampers to Eid, Diwali, Christmas, and grand wedding milestones.',
       img: `${BASE}images/hero-gift.jpg`,
+    },
+    valentine: {
+      badge: '💖 14th Feb & Love Celebrations',
+      title1: 'Romantic Keepsakes &',
+      title2: 'Pure Heartfelt Love.',
+      desc: 'Hand-poured Damask rose soy candles, single-origin Belgian chocolate, vintage brass wax-seal love letter sets, and crimson velvet bows to make 14th February unforgettable.',
+      img: `${BASE}images/hero-gift.jpg`,
+    },
+    birthday: {
+      badge: '🎂 Birthday Celebrations & Hampers',
+      title1: 'Make Every Birthday',
+      title2: 'Unforgettably Sweet.',
+      desc: 'Hand-thrown celebratory mugs, gourmet salted caramel butter cookies, celebration sparkler candles, party poppers, and personalized calligraphy ribbons.',
+      img: `${BASE}images/product-chai-kit.jpg`,
+    },
+    hampers: {
+      badge: '🧺 Royal & Heirloom Hampers',
+      title1: 'Grand Milestones &',
+      title2: 'Heirloom Luxury.',
+      desc: 'Handcrafted rosewood trunks with pure brass Ganesha, royal Kashmiri Mamra dry fruits, pure saffron, Kannauj ittar, and silk brocade keepsakes.',
+      img: `${BASE}images/product-hamper-grand.jpg`,
     },
     diwali: {
       badge: '🪔 Shubh Diwali & Dhanteras',
@@ -48,7 +69,7 @@ function HeroSection() {
       badge: '🌙 Eid Mubarak Celebrations',
       title1: 'Noor, Fragrance &',
       title2: 'Royal Eid Blessings.',
-      desc: 'Jumbo Medjool dates stuffed with almonds, pure Kannauj Oud & Gulab ittar, sheer khurma kit, and engraved brass crescent trays.',
+      desc: 'Jumbo Medjool dates stuffed with almonds, pure Kannauj Oud & Gulab ittar, sheer khurma dry kit, and engraved brass crescent trinket dishes.',
       img: `${BASE}images/product-hamper-grand.jpg`,
     },
     christmas: {
@@ -67,20 +88,23 @@ function HeroSection() {
     },
   }
 
-  const current = FESTIVAL_HEROES[activeTab] || FESTIVAL_HEROES.all
+  const current = OCCASION_HEROES[activeTab] || OCCASION_HEROES.all
 
   return (
-    <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-gradient-hero pt-32 sm:pt-36 lg:pt-40 pb-16">
+    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-gradient-hero pt-36 sm:pt-40 lg:pt-44 pb-14">
       {/* Decorative ambient glowing orbs */}
       <div className="absolute top-16 right-0 w-[500px] h-[500px] bg-gradient-to-br from-saffron-300/25 via-rose-light/20 to-emeraldFestive-200/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 left-0 w-80 h-80 bg-gradient-to-tr from-teal-200/20 to-marigold-200/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-site relative z-10">
-        {/* Interactive Festival Mood Selector */}
-        <div className="mb-10 text-center">
-          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 bg-white/80 backdrop-blur-md p-1.5 rounded-full border border-saffron-200/80 shadow-warm-sm">
+        {/* Interactive Occasion / Mood Selector */}
+        <div className="mb-8 sm:mb-10 text-center">
+          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 bg-white/90 backdrop-blur-md p-1.5 rounded-full border border-saffron-200/80 shadow-warm-sm max-w-full">
             {[
-              { id: 'all', label: 'All Festivals ✨' },
+              { id: 'all', label: 'All Curations ✨' },
+              { id: 'valentine', label: '14th Feb Love 💖' },
+              { id: 'birthday', label: 'Birthdays 🎂' },
+              { id: 'hampers', label: 'Luxury Hampers 🧺' },
               { id: 'diwali', label: 'Diwali 🪔' },
               { id: 'eid', label: 'Eid Mubarak 🌙' },
               { id: 'christmas', label: 'Christmas 🎄' },
@@ -89,7 +113,7 @@ function HeroSection() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+                className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
                   activeTab === tab.id
                     ? 'bg-gradient-to-r from-saffron-500 to-rose-gulabi text-white shadow-sm'
                     : 'text-indigo-deep/75 hover:text-saffron-600 hover:bg-white'
@@ -101,11 +125,11 @@ function HeroSection() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Copy Column */}
           <div className="lg:col-span-7">
             {/* Founder Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-saffron-200 text-saffron-800 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-5 shadow-sm">
+            <div className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-sm border border-saffron-200 text-saffron-800 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-5 shadow-sm">
               <Sparkles size={13} className="text-saffron-500 animate-spin-slow" />
               <span>{current.badge}</span>
               <span className="text-earth-pale">•</span>
@@ -133,37 +157,27 @@ function HeroSection() {
               </Link>
             </div>
 
-            {/* Founder Contact Row */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 border border-saffron-100 flex flex-wrap items-center justify-between gap-3 shadow-sm max-w-xl">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-saffron-100 flex items-center justify-center text-saffron-700 font-bold text-xs flex-shrink-0">
-                  PS
-                </div>
-                <div>
-                  <p className="font-bold text-xs text-indigo-deep">Curated by Preety Singh</p>
-                  <p className="text-[11px] text-earth-light">Nagerbazar, Jessore Road, Kolkata - 700074</p>
-                </div>
+            {/* Trust Badges Row (Clean, high-end, zero overlapping clutter) */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-xl">
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 border border-saffron-100 text-center shadow-sm">
+                <span className="text-lg block mb-0.5">⚡</span>
+                <p className="font-bold text-xs text-indigo-deep leading-tight">Same-Day Kolkata</p>
+                <p className="text-[10px] text-earth-light">Studio Dispatch</p>
               </div>
-              <div className="flex items-center gap-2">
-                <a
-                  href="tel:9831559109"
-                  className="inline-flex items-center gap-1 bg-saffron-50 text-saffron-700 hover:bg-saffron-100 px-3 py-1.5 rounded-full text-xs font-bold transition-colors"
-                >
-                  <Phone size={11} /> 9831559109
-                </a>
-                <a
-                  href="https://wa.me/919831559109"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 bg-emerald-600 text-white hover:bg-emerald-700 px-3 py-1.5 rounded-full text-xs font-bold transition-colors"
-                >
-                  <MessageCircle size={11} /> WhatsApp
-                </a>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 border border-saffron-100 text-center shadow-sm">
+                <span className="text-lg block mb-0.5">💖</span>
+                <p className="font-bold text-xs text-indigo-deep leading-tight">Wax-Sealed Note</p>
+                <p className="text-[10px] text-earth-light">Calligraphy Ribbon</p>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 border border-saffron-100 text-center shadow-sm">
+                <span className="text-lg block mb-0.5">🚚</span>
+                <p className="font-bold text-xs text-indigo-deep leading-tight">Pan-India Ship</p>
+                <p className="text-[10px] text-earth-light">Insured &amp; Fragile Safe</p>
               </div>
             </div>
           </div>
 
-          {/* Hero Visual Card (Clean, framed, no overlapping pills) */}
+          {/* Hero Visual Card (Clean, framed, no outside floating badges to prevent overlaps) */}
           <div className="lg:col-span-5 flex justify-center">
             <div className="w-full max-w-[420px]">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-warm-xl border-4 border-white bg-ivory-warm relative group">
@@ -173,18 +187,16 @@ function HeroSection() {
                   key={activeTab}
                   className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 animate-fade-in"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/85 via-indigo-deep/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-indigo-deep/90 via-indigo-deep/20 to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5 text-white">
                   <span className="inline-block bg-saffron-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2 shadow-sm">
                     {current.badge}
                   </span>
                   <p className="font-display font-bold text-lg md:text-xl leading-snug text-white drop-shadow">
-                    Hand-packed by Preety Singh • Kolkata - 700074
+                    Hand-packed by Preety Singh
                   </p>
-                  <p className="text-xs text-ivory/80 mt-1 flex items-center gap-1">
-                    <span>✨ Pan-India Express Delivery</span>
-                    <span>•</span>
-                    <span>📞 9831559109</span>
+                  <p className="text-xs text-ivory/80 mt-1">
+                    Nagerbazar, Jessore Road, Kolkata - 700074 • 📞 9831559109
                   </p>
                 </div>
               </div>
@@ -229,50 +241,50 @@ function OccasionsStrip() {
   )
 }
 
-// ─── Multi-Festival Bento ────────────────────────────────────────────────────
+// ─── Multi-Occasion Bento ────────────────────────────────────────────────────
 function CategoryBento() {
   const { ref, isVisible } = useScrollReveal()
   const bentoItems = [
     {
-      label: 'Diwali & Dhanteras Lights',
+      label: '14th Feb Valentine & Romance',
+      emoji: '💖',
+      desc: 'Damask rose soy candle, single-origin chocolate, wax-sealed love letter kit & crimson velvet ribbons',
+      to: '/catalog?occasion=valentine',
+      img: `${BASE}images/hero-gift.jpg`,
+      large: true,
+      tag: 'Love & Romance',
+    },
+    {
+      label: 'Birthday Celebrations & Hampers',
+      emoji: '🎂',
+      desc: 'Hand-thrown celebratory mugs, salted caramel cookies, sparkler candles & confetti boxes',
+      to: '/catalog?occasion=birthday',
+      img: `${BASE}images/product-chai-kit.jpg`,
+      tag: 'Birthdays',
+    },
+    {
+      label: 'Grand Heirloom & Wedding Hampers',
+      emoji: '🧺',
+      desc: 'Carved rosewood trunks, brass Ganesha, Kashmiri Mamra almonds & Kannauj ittar',
+      to: '/hampers',
+      img: `${BASE}images/product-hamper-grand.jpg`,
+      tag: 'Luxury Hampers',
+    },
+    {
+      label: 'Sacred Festivals (Diwali • Eid • Xmas • Pujo)',
       emoji: '🪔',
-      desc: 'Terracotta diyas, pooja brass bells & rangoli colors',
+      desc: 'Moradabad brass diyas, jumbo Medjool dates, spiced plum cakes & Shantiniketan Kantha silks',
       to: '/catalog?occasion=diwali',
       img: `${BASE}images/product-diwali-diya.jpg`,
-      large: true,
-      tag: 'Festive Lights',
+      tag: 'All Festivals',
     },
     {
-      label: 'Noor-e-Eid Mubarak',
-      emoji: '🌙',
-      desc: 'Stuffed Medjool dates, Oud ittar & brass crescent tray',
-      to: '/catalog?occasion=eid',
-      img: `${BASE}images/product-hamper-grand.jpg`,
-      tag: 'Royal Eid',
-    },
-    {
-      label: 'Old-Kolkata Christmas Joy',
-      emoji: '🎄',
-      desc: 'Rich spiced fruit plum cake, cocoa & pine candle',
-      to: '/catalog?occasion=christmas',
-      img: `${BASE}images/hero-gift.jpg`,
-      tag: 'Winter Cheer',
-    },
-    {
-      label: 'Sharod Utsav & Durga Puja',
-      emoji: '🌺',
-      desc: 'Kantha silk clutch, Darjeeling Makaibari tea & dhunuchi',
-      to: '/catalog?occasion=durga-puja',
-      img: `${BASE}images/product-block-print.jpg`,
-      tag: 'Bengal Heritage',
-    },
-    {
-      label: 'Rang Barse Herbal Holi',
-      emoji: '🎨',
-      desc: 'Skin-safe organic floral gulal, thandai & chandan',
-      to: '/catalog?occasion=holi',
+      label: 'Ayurveda Spa & Pampering',
+      emoji: '🌸',
+      desc: 'Wild Kasturi turmeric bars, Kannauj steam-distilled rose water & Kumkumadi saffron oil',
+      to: '/catalog?occasion=self-care',
       img: `${BASE}images/product-haldi-box.jpg`,
-      tag: 'Spring Colors',
+      tag: 'Self-Care Rituals',
     },
   ]
 
@@ -285,12 +297,12 @@ function CategoryBento() {
         }`}
       >
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="tag bg-saffron-100 text-saffron-700 mb-3">All Indian Festivals • Handcrafted</span>
+          <span className="tag bg-saffron-100 text-saffron-700 mb-3">All Occasions &amp; Celebrations • Handcrafted</span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-deep mb-3">
-            Flavours of Every Celebration
+            Gifts for Every Heartfelt Moment
           </h2>
           <p className="text-sm sm:text-base text-indigo-deep/75 leading-relaxed">
-            From the lights of Diwali and the crescent of Eid to Christmas carols and the rhythm of Pujo dhaks — we weave India’s grand festivities into each artisanal box.
+            From 14th Feb Valentine romance and memorable birthday surprises to the lights of Diwali, Eid blessings, Christmas warmth, and grand milestone hampers.
           </p>
         </div>
 
@@ -343,10 +355,10 @@ function FeaturedProducts() {
           <div>
             <span className="tag bg-saffron-100 text-saffron-700 mb-2">Curated With Intent</span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-indigo-deep">
-              Featured Festival Curations
+              Featured Gifting Highlights
             </h2>
             <p className="text-sm text-earth-light mt-1">
-              Hand-packed by Preety Singh (Nagerbazar, Kolkata - 700074)
+              Hand-packed by Preety Singh (Nagerbazar, Kolkata - 700074 • 📞 9831559109)
             </p>
           </div>
           <Link to="/catalog" className="btn-secondary self-start sm:self-auto">
@@ -367,12 +379,20 @@ function FeaturedProducts() {
 // ─── Gift Recommendation Quiz ─────────────────────────────────────────────────
 const QUIZ_STEPS = [
   {
-    q: 'Which festival or celebration are you gifting for?',
-    options: ['Diwali & Dhanteras', 'Eid-ul-Fitr / Eid Mubarak', 'Christmas & New Year', 'Durga Puja & Navratri', 'Holi Celebrations', 'Wedding / Griha Pravesh'],
+    q: 'What special occasion are you gifting for?',
+    options: [
+      '14th Feb & Valentine 💖',
+      'Birthday Celebrations 🎂',
+      'Curated Luxury Hamper 🧺',
+      'Diwali & Dhanteras 🪔',
+      'Eid Mubarak 🌙',
+      'Christmas & New Year 🎄',
+      'Grand Wedding / Milestone 💍',
+    ],
   },
   {
-    q: 'Who is the recipient?',
-    options: ['Parents & Family Elders', 'Clients & Business Partners', 'Close Friends & Siblings', 'Newly Married Couple', 'Self-Care / Personal Treat'],
+    q: 'Who is the lucky recipient?',
+    options: ['Romantic Partner / Spouse', 'Parents & Elders', 'Best Friend / Sibling', 'Colleague / Business Client', 'Self-Care Treat'],
   },
   {
     q: 'What is your comfortable budget?',
@@ -518,10 +538,10 @@ function BuildYourBoxCTA() {
               Interactive Custom Box Builder
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-indigo-deep mb-4 leading-tight">
-              Create Your Personalized Festival Box
+              Create Your Personalized Gift Hamper
             </h2>
             <p className="text-indigo-deep/70 text-sm sm:text-base leading-relaxed mb-6">
-              Pick up to 6 treasures across any festival flavor — diyas, plum cakes, ittar, Darjeeling tea, or chai kulhads. Preety Singh personally ensures each box is hand-packed with fresh petals and your custom blessing.
+              Pick up to 6 artisan treasures across Valentine romance, birthday delights, festive sweets, or heirloom craftwares. Preety Singh personally ensures each box is hand-packed in Nagerbazar, Kolkata with fresh petals and your handwritten note.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-8 text-sm">

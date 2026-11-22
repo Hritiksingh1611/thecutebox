@@ -20,10 +20,10 @@ export default function HampersPage() {
             👑 Curated in Kolkata by Preety Singh (+91 9831559109)
           </span>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-indigo-deep mb-5">
-            Royal Festival Hampers
+            Luxury Curated Hampers
           </h1>
           <p className="text-indigo-deep/75 text-base sm:text-lg leading-relaxed mb-8">
-            Grand curations for Eid Mubarak, Christmas, Durga Puja, and Diwali. Packed with authentic artisanal treasures, royal sweets, and handwritten blessings.
+            Grand artisanal gift hampers for 14th Feb Valentine romance, Birthdays, Anniversaries, and Sacred Festivals (Eid, Diwali, Christmas &amp; Durga Puja). Handcrafted with personal care in Nagerbazar, Kolkata by Preety Singh.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
