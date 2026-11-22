@@ -432,7 +432,7 @@ export default function BuildYourBoxPage() {
                   Your Box is Hand-packed &amp; Added!
                 </h3>
                 <p className="text-earth-light text-base max-w-md mx-auto mb-8">
-                  Your customized curation has been added to your bag. Our studio artisans in Jaipur will hand-pack it with fresh petals upon checkout.
+                  Your customized curation has been added to your bag. Preety Singh in Nagerbazar, Kolkata will personally hand-pack it with fresh petals upon checkout.
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <a href="/" className="btn-primary">
